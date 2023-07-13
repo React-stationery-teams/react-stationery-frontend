@@ -1,0 +1,119 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+  top: 0px;
+  width: 30%;
+  height: 100%;
+  z-index: 3;
+  position: absolute;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+
+  .header {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      font-size: 24px;
+    }
+  }
+
+  .products {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    .background {
+      display: flex;
+      padding: 10px;
+      border-radius: 10px;
+      align-items: center;
+      border: 1px solid black;
+
+      img {
+        width: 40%;
+      }
+
+      .description {
+        .name {
+          margin-bottom: 20px;
+        }
+
+        .price {
+          display: flex;
+          .cost {
+            color: #9b9b9b;
+            margin-right: 10px;
+          }
+        }
+
+        .calculator{
+            display: flex;
+            align-items: center;
+            .backgroundCalculator{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 100%;
+                border: 1px solid black;
+                padding: 6px 11px;
+                cursor: pointer;
+                
+                .sign{
+                
+                }
+            }
+        }
+      }
+      }
+    }
+  }
+
+  .backgroundButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #9b9b9b;
+    border-radius: 10px;
+
+    .close {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+@media (max-width: 700px) {
+  .cart {
+    width: 90%;
+    top: 70px;
+    .header {
+      .backgroundButton {
+        width: 30px;
+        height: 30px;
+
+        .close {
+          width: 15px;
+          height: 15px;
+        }
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+    }
+
+    .products {
+      .background {
+        img {
+          width: 40%;
+          margin-right: 10px;
+        }
+        }
+      }
+    }
+  }

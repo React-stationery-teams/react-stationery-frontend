@@ -1,0 +1,93 @@
+.parameters {
+  display: flex;
+  justify-content: space-between;
+  .parametersBlock {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+    margin: 0 15px;
+
+    .background {
+      display: flex;
+      align-items: center;
+      background-color: #5891d4;
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: white;
+      margin: 0 10px 5px 0;
+      cursor: pointer;
+
+      &:hover {
+        border: 1px solid #5891d4;
+        color: #5891d4;
+        background-color: white;
+      }
+    }
+  }
+
+  .search {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    margin: 0 15px;
+    padding: 10px;
+    background-color: #5891d4;
+    border-radius: 10px;
+    color: white;
+
+    input {
+      all: unset;
+      width: 80%;
+      color: white;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    .separator {
+      width: 1.5px;
+      height: 20px;
+      margin: 0 10px;
+      background-color: white;
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .parameters {
+    font-size: 12px;
+    .parametersBlock {
+      width: 60%;
+      font-size: 12px;
+      margin: 0 0 0 7.5px;
+
+      .background {
+        margin: 0 5px 5px 0;
+      }
+    }
+
+    .search {
+      width: 40%;
+      height: 15px;
+      padding: 5px;
+      margin: 0 7.5px 0 0;
+
+      .separator {
+        width: 1.5px;
+        height: 10px;
+        background-color: white;
+      }
+
+      img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
