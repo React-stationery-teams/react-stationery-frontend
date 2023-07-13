@@ -15,7 +15,7 @@ const Header = ({setOpenCart}) => {
   React.useEffect(() => {
     async function getData() {
     try{
-        const url = "http://192.168.0.104:3001/cart";
+        const url = "http://192.168.0.101:3001/cart";
 
         await axios.get(url).then((res) => setCart(res.data));
       }catch(err){

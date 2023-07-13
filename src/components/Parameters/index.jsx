@@ -13,7 +13,7 @@ const Parameters = ({setSelectParameter, search, setSearch}) => {
   //получение параметров фильтрации
   React.useEffect(() => {
     async function getData(){
-      let apiUrl = "http://192.168.0.104:3001/parameters";
+      let apiUrl = "http://192.168.0.101:3001/parameters";
       try{
       await axios.get(apiUrl).then((res) => {
         setParameters(res.data);

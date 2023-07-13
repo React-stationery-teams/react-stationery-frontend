@@ -16,7 +16,7 @@ const Favorite = () => {
   React.useEffect(() => {
     async function getData() {
       try {
-        const url = "http://192.168.0.104:3001/favorite";
+        const url = "http://192.168.0.101:3001/favorite";
 
         await axios.get(url).then((res) => setFavorite(res.data));
       } catch (err) {
@@ -35,7 +35,7 @@ const Favorite = () => {
         <h3>Мои закладки</h3>
       </div>
       <div className={styles.productList}>
-        {favorite.map((obj) => <Product key={obj.id} {...obj} />)}
+        {favorite.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAdd={favorite.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)}
       </div>
     </div>
   ) : (

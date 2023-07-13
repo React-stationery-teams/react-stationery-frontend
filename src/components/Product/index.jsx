@@ -8,31 +8,33 @@ import{ReactComponent as Add} from "../../assets/ico/add.svg";
 import{ReactComponent as Favorite} from "../../assets/ico/favorite.svg";
 import fullFavorite from "../../assets/ico/fullFavorite.png";
 
-const Product = ({id, name, price, type, weight, mainPhoto, photos, description, property}) => {
-    const [favorite, setFavorite] = React.useState([]);
-    const [addToFavorite, setAddToFavorite] = React.useState(false);
+const Product = ({id, name, price, type, weight, mainPhoto, photos, description, property, isAdd = false, setFavorite, favorite}) => {
+  const [isAdded, setIsAdded] = React.useState(isAdd);
 
-    React.useEffect(() => {
-    async function getData() {
-      try {
-        const url = "http://192.168.0.104:3001/favorite";
 
-        await axios.get(url).then((res) => setFavorite(res.data));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getData();
-  }, []);
-
-    const changeStateFavorite = (id) => {
-        setAddToFavorite(!addToFavorite);
-    }
+  const changeToFavorite = async () => {
+    if(favorite.find((obj) => obj.id === id)){
+      await axios.delete(`http://192.168.0.101:3001/favorite/${id}`)
+      setFavorite(favorite.filter((obj) => obj.id !== id));
+    }else{
+    const {data} = await axios.post("http://192.168.0.101:3001/favorite", {
+      id: id,
+      name: name,
+      price: price,
+      type: type,
+      weight: weight,
+      mainPhoto: mainPhoto,
+      photos: photos,
+      description: description,
+      property: property
+    }).catch((error) => console.log(error));
+    setFavorite((prev) => [...prev, data]);}
+    setIsAdded(!isAdded);
+  }
 
   return (
     <div className={styles.background}>
-        {addToFavorite ? <img onClick={changeStateFavorite(id)} src={fullFavorite} className={styles.fullFavorite} alt="Сердце"/> : <Favorite onClick={changeStateFavorite(id)} className={styles.favorite}/>}
+        {isAdded ? <img onClick={() =>changeToFavorite()} src={fullFavorite} className={styles.fullFavorite} alt="Сердце"/> : <Favorite onClick={() => changeToFavorite()} className={styles.favorite}/>}
         <img src={mainPhoto} alt="Товар"/>
         <div className={styles.description}>
             <Link to="/product" className={styles.name}>{name}</Link>
