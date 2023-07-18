@@ -3,10 +3,10 @@ import ReactPaginate from 'react-paginate';
 
 import styles from "./Pagination.module.scss";
 
-const Pagination = ({setPagination, length}) => {
+const Pagination = ({changePagination, length}) => {
 
     const clickPagination = (event) => {
-        setPagination(event+1)
+        changePagination(event+1)
         window.scrollTo(0, 0);
       }
 

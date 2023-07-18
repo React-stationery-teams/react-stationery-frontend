@@ -16,7 +16,7 @@ const Favorite = () => {
   React.useEffect(() => {
     async function getData() {
       try {
-        const url = "http://192.168.0.101:3001/favorite";
+        const url = "http://192.168.0.104:3001/favorite";
 
         await axios.get(url).then((res) => setFavorite(res.data));
       } catch (err) {
