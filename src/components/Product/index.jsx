@@ -14,10 +14,10 @@ const Product = ({id, name, price, type, weight, mainPhoto, photos, description,
 
   const changeToFavorite = async () => {
     if(favorite.find((obj) => obj.id === id)){
-      await axios.delete(`http://192.168.0.101:3001/favorite/${id}`)
+      await axios.delete(`http://192.168.0.104:3001/favorite/${id}`)
       setFavorite(favorite.filter((obj) => obj.id !== id));
     }else{
-    const {data} = await axios.post("http://192.168.0.101:3001/favorite", {
+    const {data} = await axios.post("http://192.168.0.104:3001/favorite", {
       id: id,
       name: name,
       price: price,

@@ -6,14 +6,14 @@ import Erorr from "../Error/index";
 
 import searchImg from "../../assets/ico/search.svg";
 
-const Parameters = ({setSelectParameter, search, setSearch}) => {
+const Parameters = ({changeParameter, search, setSearch}) => {
   const [parameters, setParameters] = React.useState([]);
   const [error, setError] = React.useState('');
 
   //получение параметров фильтрации
   React.useEffect(() => {
     async function getData(){
-      let apiUrl = "http://192.168.0.101:3001/parameters";
+      let apiUrl = "http://192.168.0.104:3001/parameters";
       try{
       await axios.get(apiUrl).then((res) => {
         setParameters(res.data);
@@ -32,7 +32,7 @@ const Parameters = ({setSelectParameter, search, setSearch}) => {
     text={"Похоже возникли непредвиденные обстоятельства :("}
   /> : <div className={styles.parameters}>
     <div className={styles.parametersBlock}>
-      {parameters.map((obj) => <div key={obj.id} onClick={() => setSelectParameter(obj.id)} className={styles.background}><div className={styles.text}>{obj.name}</div></div>)}
+      {parameters.map((obj) => <div key={obj.id} onClick={() => changeParameter(obj.id)} className={styles.background}><div className={styles.text}>{obj.name}</div></div>)}
     </div>
     <div className={styles.search}>
       <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Название товара..." />
