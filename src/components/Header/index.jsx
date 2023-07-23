@@ -35,10 +35,10 @@ const Header = ({setOpenCart}) => {
       <div className={styles.right}>
         <div className={styles.cost}>
           <h5>1578 р.</h5>
-          <div>
+          <Link to="/cart">
             {cart.length > 0 ? <div className={styles.backgroundAlert}><div className={styles.textAlert}>{cart.length}</div></div> : ''}
             <img src={cartImg} alt="Корзина" />
-          </div>
+          </Link>
         </div>
         <Link to="/favorite">
           <img src={favorite} alt="Закладки" />

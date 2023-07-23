@@ -11,7 +11,7 @@ const ClearPage = ({smile, header, text}) => {
       <img src={smile} alt="Смайл" />
     </div>
     <h5>{text}</h5>
-    <Button />
+    <Button text="Вернуться"/>
   </div>
   )
 }

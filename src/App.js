@@ -8,23 +8,19 @@ import Home from "./pages/Home/index";
 import Favorite from "./pages/Favorite/index";
 import Profile from "./pages/Profile/index";
 import AboutProduct from "./pages/AboutProduct/index";
-import Erorr from "./components/Error";
-import Cart from "./components/Cart/index";
+import Error from "./components/Error";
+import Cart from "./pages/Cart/index";
 
 function App() {
-  const [openCart, setOpenCart] = React.useState(false);
-
   return (
     <div className={styles.background}>
-      <Header 
-        setOpenCart={setOpenCart} />
-      {/* {openCart ? <Cart setOpenCart={setOpenCart} /> : null} */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route
           path="*"
           element={
-            <Erorr
+            <Error
               header={"Erorr 404"}
               text={"Похоже данной странице не существует"}
             />
@@ -33,6 +29,7 @@ function App() {
         <Route path="/favorite" element={<Favorite />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/product" element={<AboutProduct />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </div>
   );

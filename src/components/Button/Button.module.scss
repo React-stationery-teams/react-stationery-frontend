@@ -2,23 +2,21 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    background-color: #5891d4;
+    padding: 10px 15px;
+    border: 1px solid #5891d4;
     border-radius: 15px;
     cursor:pointer;
 
     &:hover{
-        border: 1px solid #5891d4;
-        background-color: white;
+        background-color: #5891d4;
 
         .text{
-            color:#5891d4;
+            color: white;
         }
 
     }
 
     .text{
-        color: white;
-        margin-right: 5px;
+        color: #5891d4;
     }
 }

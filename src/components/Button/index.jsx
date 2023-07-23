@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import styles from "./Button.module.scss";
 
-const Button = () => {
+const Button = ({text, link='/', ico}) => {
   return (
-    <Link to="/" className={styles.background}>
-        <div className={styles.text}>Вернуться назад</div>
+    <Link to={link} className={styles.background}>
+        <div className={styles.text}>{text}</div>
     </Link>
   )
 }

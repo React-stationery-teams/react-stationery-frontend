@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Home.module.scss";
 import Product from "../../components/Product/index";
 import Parameters from "../../components/Parameters/index";
-import Cart from "../../components/Cart/index";
 import Error from "../../components/Error/index";
 import Pagination from "../../components/Pagination/index";
 import { setPaginationId } from "../../store/pagination/paginationSlice";
@@ -93,15 +92,14 @@ const Home = () => {
       />
       <h3>Все товары</h3>
       <div className={styles.productList}>
-        {products ? (
+        {products.length !== 0 ? (
           products.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAdd={favorite.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)
         ) : (
           <Error
-            header={"Упс..Пустота..."}
+            header={"Упс! Пустота..."}
             text={"Похоже товары подходящие под фильтр отсутсвуют"}
           />
         )}
-        {/* пофиксить вывод уведомления об отсутсвии товаров */}
       </div>
       {productsLength.length >=8 ?
         <Pagination

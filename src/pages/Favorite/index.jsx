@@ -12,6 +12,7 @@ import Product from "../../components/Product";
 
 const Favorite = () => {
   const [favorite, setFavorite] = React.useState([]);
+  console.log(favorite)
 
   React.useEffect(() => {
     async function getData() {
@@ -26,11 +27,17 @@ const Favorite = () => {
 
     getData();
   }, []);
-  return favorite ? (
+  return favorite.length === 0 ? (
+      <ClearPage
+        header={"Закладки пустые"}
+        text={"Вероятней всего, вы ещё ничего не добавляли в закладки."}
+        smile={smile}
+      />
+  ) : (
     <div className={styles.favorite}>
       <div className={styles.header}>
         <Link to="/" className={styles.back}>
-          <img src={arrow} />
+          <img src={arrow} alt="Вернуться"/>
         </Link>
         <h3>Мои закладки</h3>
       </div>
@@ -38,12 +45,6 @@ const Favorite = () => {
         {favorite.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAdd={favorite.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)}
       </div>
     </div>
-  ) : (
-      <ClearPage
-        header={"Закладки пустые"}
-        text={"Вероятней всего, вы ещё ничего не добавляли в закладки."}
-        smile={smile}
-      />
   );
 };
 

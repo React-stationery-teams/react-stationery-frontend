@@ -47,43 +47,51 @@
         color: #416da0;
       }
     }
+  }
+  .down {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto 0 0 0;
 
-    .down {
+    .price {
       display: flex;
-      justify-content: space-between;
-      margin: 7px 0;
+      flex-wrap: wrap;
+      color: #9b9b9b;
 
-      .cost {
-        color: #9b9b9b;
+      .cost{
+        margin-left: 5px;
+        color: black;
+      }
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      color: #5891d4;
+      border: 1px solid #5891d4;
+      border-radius: 20px;
+      cursor: pointer;
+
+      .add {
+        width: 15px;
+        height: 15px;
+        margin-right: 8px;
+        * {
+          fill: #5891d4;
+        }
       }
 
-      .button {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        color: #5891d4;
-        border: 1px solid #5891d4;
-        border-radius: 20px;
-        cursor: pointer;
+      &:hover {
+        color: white;
+        background-color: #5891d4;
 
         .add {
-          width: 15px;
-          height: 15px;
-          margin-right: 8px;
           * {
-            fill: #5891d4;
-          }
-        }
-
-        &:hover {
-          color: white;
-          background-color: #5891d4;
-
-          .add {
-            * {
-              fill: white;
-            }
+            fill: white;
           }
         }
       }

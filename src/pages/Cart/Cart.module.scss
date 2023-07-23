@@ -1,0 +1,175 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 3% 20% 100px 20%;
+
+  .CartHeader{
+    display: flex;
+    justify-content: space-between;
+
+    .CartText{
+      display: flex;
+      color: #000000;
+      font-size: 20px;
+      font-weight: 900px;
+
+      img{
+        margin-right: 10px;
+        width: 30%;
+      }
+    }
+
+    .CartClear{
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      color:#8b8b8b;
+      font-size: 13px;
+
+      img{
+        width: 10%;
+      }
+    }
+  }
+
+  .ProductsList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .Product {
+      width: 60%;
+      display: flex;
+      margin: 10px 0;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      border: 1px solid grey;
+      border-radius: 10px;
+      padding: 10px;
+
+      img{
+        width: 30%;
+      }
+
+      .Description{
+        margin: 0 20px;
+        .Cost{
+          color: #8b8b8b;
+        }
+      }
+
+      .Counter{
+        display: flex;
+        align-self: center;
+        align-items: center;
+        margin-left: auto;
+
+        div{
+          cursor: pointer;
+          margin: 0 5px;
+        }
+      }
+
+      .DeleteButton{
+        align-self: center;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .CartFooter{
+    margin: 5%;
+    display: flex;
+    justify-content: space-between;
+
+    .ButtonBuy{
+      border: 1px solid #5891d4;
+      color: #5891d4;
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+
+      &:hover{
+        background-color: #5891d4;
+        color: white;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 700px) {
+  .Cart {
+    padding: 3% 7% 100px 7%;
+  
+    .CartHeader{
+
+      .CartText{
+        font-size: 16px;
+  
+        img{
+          margin-right: 5px;
+          width: 30%;
+        }
+      }
+  
+      .CartClear{
+        color:#8b8b8b;
+        font-size: 13px;
+        margin-left: 25%;
+  
+        img{
+          width: 15%;
+        }
+      }
+    }
+  
+    .ProductsList{
+  
+      .Product {
+        width: 100%;
+        margin: 5px 0;
+  
+        img{
+          width: 40%;
+        }
+  
+        .Description{
+          font-size: 10px;
+          margin: 0 0 0 2%;
+          
+        }
+  
+        .Counter{
+          div{
+            margin: 0px;
+          }
+        }
+
+      }
+    }
+  
+    .CartFooter{
+      margin: 5%;
+      display: flex;
+      justify-content: space-between;
+  
+      .ButtonBuy{
+        border: 1px solid #5891d4;
+        color: #5891d4;
+        border-radius: 10px;
+        padding: 15px;
+        cursor: pointer;
+  
+        &:hover{
+          background-color: #5891d4;
+          color: white;
+        }
+      }
+    }
+  
+  }
+  }
