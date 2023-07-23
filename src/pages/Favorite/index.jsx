@@ -12,7 +12,6 @@ import Product from "../../components/Product";
 
 const Favorite = () => {
   const [favorite, setFavorite] = React.useState([]);
-  console.log(favorite)
 
   React.useEffect(() => {
     async function getData() {
@@ -42,7 +41,7 @@ const Favorite = () => {
         <h3>Мои закладки</h3>
       </div>
       <div className={styles.productList}>
-        {favorite.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAdd={favorite.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)}
+        {favorite.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAddToFavorite={favorite.some((product) => obj.id === product.id )}  key={obj.id} {...obj} />)}
       </div>
     </div>
   );

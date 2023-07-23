@@ -18,11 +18,16 @@ const Product = ({
   photos,
   description,
   property,
-  isAdd = false,
+  isAddToFavorite = false,
+  isAddToCart = false,
   setFavorite,
   favorite,
+  setCart,
+  cart,
 }) => {
-  const [isAdded, setIsAdded] = React.useState(isAdd);
+  const [isAddedToFavorite, setIsAddedToFavorite] =
+    React.useState(isAddToFavorite);
+  const [isAddedToCart, setIsAddedToCart] = React.useState(isAddToCart);
 
   const changeToFavorite = async () => {
     if (favorite.find((obj) => obj.id === id)) {
@@ -44,12 +49,35 @@ const Product = ({
         .catch((error) => console.log(error));
       setFavorite((prev) => [...prev, data]);
     }
-    setIsAdded(!isAdded);
+    setIsAddedToFavorite(!isAddedToFavorite);
+  };
+
+  const changeToCart = async () => {
+    if (cart.find((obj) => obj.id === id)) {
+      await axios.delete(`http://192.168.0.104:3001/cart/${id}`);
+      setCart(cart.filter((obj) => obj.id !== id));
+    } else {
+      const { data } = await axios
+        .post("http://192.168.0.104:3001/cart", {
+          id: id,
+          name: name,
+          price: price,
+          type: type,
+          weight: weight,
+          mainPhoto: mainPhoto,
+          photos: photos,
+          description: description,
+          property: property,
+        })
+        .catch((error) => console.log(error));
+      setFavorite((prev) => [...prev, data]);
+    }
+    setIsAddedToCart(!isAddedToCart);
   };
 
   return (
     <div className={styles.background}>
-      {isAdded ? (
+      {isAddedToFavorite ? (
         <img
           onClick={() => changeToFavorite()}
           src={fullFavorite}
@@ -69,11 +97,20 @@ const Product = ({
         </Link>
       </div>
       <div className={styles.down}>
-        <div className={styles.price}>Цена: <div className={styles.cost}>{price} р.</div></div>
-        <div className={styles.button}>
-          <Add className={styles.add} />
-          <div className={styles.text}>В корзину</div>
+        <div className={styles.price}>
+          Цена: <div className={styles.cost}>{price} р.</div>
         </div>
+        {isAddedToCart ? (
+          <div className={styles.button}>
+            <Add className={styles.add} />
+            <div className={styles.text}>В корзине</div>
+          </div>
+        ) : (
+          <div onClick={() => changeToCart()} className={styles.button}>
+            <Add className={styles.add} />
+            <div className={styles.text}>В корзину</div>
+          </div>
+        )}
       </div>
     </div>
   );

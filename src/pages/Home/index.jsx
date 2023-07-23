@@ -30,6 +30,7 @@ const Home = () => {
   const [search, setSearch] = React.useState("");
   const [error, setError] = React.useState("");
   const [favorite, setFavorite] = React.useState([]);
+  const [cart, setCart] = React.useState([]);
 
   const parameter = parameterId > 0 ? `type=${parameterId}` : "";
   const searchValue = search ? `name_like=${search}` : "";
@@ -41,6 +42,20 @@ const Home = () => {
       const url = "http://192.168.0.104:3001/favorite";
 
       await axios.get(url).then((res) => setFavorite(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  getData();
+}, []);
+
+React.useEffect(() => {
+  async function getData() {
+    try {
+      const url = "http://192.168.0.104:3001/cart";
+
+      await axios.get(url).then((res) => setCart(res.data));
     } catch (err) {
       console.log(err);
     }
@@ -93,7 +108,7 @@ const Home = () => {
       <h3>Все товары</h3>
       <div className={styles.productList}>
         {products.length !== 0 ? (
-          products.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAdd={favorite.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)
+          products.map((obj) => <Product setFavorite={setFavorite} setCart={setCart} cart={cart} favorite={favorite} isAddToFavorite={favorite.some((product) => obj.id === product.id )} isAddToCart={cart.some((product) => obj.id === product.id )} key={obj.id} {...obj} />)
         ) : (
           <Error
             header={"Упс! Пустота..."}
