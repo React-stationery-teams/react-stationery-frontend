@@ -100,17 +100,10 @@ const Product = ({
         <div className={styles.price}>
           Цена: <div className={styles.cost}>{price} р.</div>
         </div>
-        {isAddedToCart ? (
-          <div className={styles.button}>
-            <Add className={styles.add} />
-            <div className={styles.text}>В корзине</div>
-          </div>
-        ) : (
           <div onClick={() => changeToCart()} className={styles.button}>
             <Add className={styles.add} />
             <div className={styles.text}>В корзину</div>
           </div>
-        )}
       </div>
     </div>
   );

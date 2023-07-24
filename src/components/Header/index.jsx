@@ -9,7 +9,7 @@ import favorite from "../../assets/ico/favorite.svg";
 import profile from "../../assets/ico/profile.svg";
 import logo from "../../assets/ico/logo.png";
 
-const Header = ({setOpenCart}) => {
+const Header = () => {
   const [cart, setCart] = React.useState([]);
 
   React.useEffect(() => {

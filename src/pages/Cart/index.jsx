@@ -34,7 +34,7 @@ const Cart = () => {
   const deleteItem = (id) => {
     axios.delete(`http://192.168.0.104:3001/cart/${id}`);
     setCart(cart.filter((obj) => obj.id !== id));
-  }
+  };
 
   return cart.length !== 0 ? (
     <div className={styles.Cart}>
@@ -49,27 +49,32 @@ const Cart = () => {
         </div>
       </div>
       <div className={styles.ProductsList}>
-        {cart.map((obj) => <div key={obj.id} className={styles.Product}>
-          <img src={obj.mainPhoto} alt="Товар" />
-          <div className={styles.Description}>
-            <h2>{obj.name}</h2>
-            <div className={styles.Cost}>Цена:{obj.price}р</div>
-          </div>
-          <div className={styles.Counter}>
-            <div>
-              <Plus />
+        {cart.map((obj) => (
+          <div key={obj.id} className={styles.Product}>
+            <img src={obj.mainPhoto} alt="Товар" />
+            <div className={styles.Description}>
+              <div className={styles.Text}>
+                <h3>{obj.name}</h3>
+                <div className={styles.Cost}>Цена:{obj.price}р</div>
+              </div>
+              <div className={styles.Counter}>
+                <div>
+                  <Plus />
+                </div>
+                <div>1</div>
+                <div>
+                  <Minus />
+                </div>
+              </div>
             </div>
-            <div>1</div>
-            <div>
-              <Minus />
+            <div
+              onClick={() => deleteItem(obj.id)}
+              className={styles.DeleteButton}
+            >
+              <Delete />
             </div>
           </div>
-          <div onClick={() => deleteItem(obj.id)} className={styles.DeleteButton}>
-            <Delete />
-          </div>
-        </div>)
-
-        }
+        ))}
       </div>
       <div className={styles.CartFooter}>
         <Button ico={back} text="Вернуться" />
@@ -82,7 +87,7 @@ const Cart = () => {
       text={"Вероятней всего, вы ещё ничего не добавляли в корзину."}
       smile={smile}
     />
-);
+  );
 };
 
 export default Cart;

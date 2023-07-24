@@ -9,11 +9,13 @@ import Error from "../../components/Error/index";
 import Pagination from "../../components/Pagination/index";
 import { setPaginationId } from "../../store/pagination/paginationSlice";
 import { setParametersId } from "../../store/filter/filterSlice";
+import { setSearchValue } from "../../store/search/searchSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   const parameterId = useSelector(state => state.filter.parameterId);
   const paginationId = useSelector(state => state.pagination.paginationId);
+  const searchValue = useSelector(state => state.search.value);
 
   const changeParameter = (id) => {
     dispatch(setParametersId(id));
@@ -23,17 +25,20 @@ const Home = () => {
     dispatch(setPaginationId(id))
   }
 
+  const changeSearchValue = (value) => {
+    dispatch(setSearchValue(value))
+  }
+
 
 
   const [products, setProducts] = React.useState([]);
   const [productsLength, setProductLength] = React.useState([]);
-  const [search, setSearch] = React.useState("");
   const [error, setError] = React.useState("");
   const [favorite, setFavorite] = React.useState([]);
   const [cart, setCart] = React.useState([]);
 
   const parameter = parameterId > 0 ? `type=${parameterId}` : "";
-  const searchValue = search ? `name_like=${search}` : "";
+  const search = searchValue ? `name_like=${searchValue}` : "";
   const paginationValue = `_page=${paginationId}&_limit=8`;
 
   React.useEffect(() => {
@@ -66,22 +71,25 @@ React.useEffect(() => {
 
   //получение товаров
   React.useEffect(() => {
+    async function getData() {
       try {
-        let apiUrl = `http://192.168.0.104:3001/products?${parameter}&${searchValue}&${paginationValue}`;
-        axios.get(apiUrl).then((res) => {
+        let apiUrl = `http://192.168.0.104:3001/products?${parameter}&${search}&${paginationValue}`;
+        await axios.get(apiUrl).then((res) => {
           setProducts(res.data);
         });
       } catch (err) {
         setError(err.message);
         console.log(err);
       }
+    }
+    getData();
       
-  }, [parameter, searchValue, paginationValue]);
+  }, [parameter, search, paginationValue]);
 
   //получение размера массива товаров
   React.useEffect(() => {
     try {
-      let apiUrl = `http://192.168.0.104:3001/products?${parameter}&${searchValue}`;
+      let apiUrl = `http://192.168.0.104:3001/products?${parameter}&${search}`;
       dispatch(setPaginationId(0))
       axios.get(apiUrl).then((res) => {
         setProductLength(res.data);
@@ -91,7 +99,7 @@ React.useEffect(() => {
       console.log(err);
     }
     
-}, [parameter, searchValue]);
+}, [parameter, search]);
 
   return error !== "" ? (
     <Error
@@ -102,8 +110,8 @@ React.useEffect(() => {
     <>
       <Parameters
         search={search}
-        setSearch={setSearch}
         changeParameter={changeParameter}
+        changeSearchValue={changeSearchValue}
       />
       <h3>Все товары</h3>
       <div className={styles.productList}>

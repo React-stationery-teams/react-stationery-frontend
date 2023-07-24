@@ -4,43 +4,43 @@
   flex-wrap: wrap;
   padding: 3% 20% 100px 20%;
 
-  .CartHeader{
+  .CartHeader {
     display: flex;
     justify-content: space-between;
 
-    .CartText{
+    .CartText {
       display: flex;
       color: #000000;
       font-size: 20px;
       font-weight: 900px;
 
-      img{
+      img {
         margin-right: 10px;
         width: 30%;
       }
     }
 
-    .CartClear{
+    .CartClear {
       display: flex;
       cursor: pointer;
       align-items: center;
-      color:#8b8b8b;
+      color: #8b8b8b;
       font-size: 13px;
 
-      img{
+      img {
         width: 10%;
       }
     }
   }
 
-  .ProductsList{
+  .ProductsList {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 
     .Product {
-      width: 60%;
+      width: 80%;
       display: flex;
       margin: 10px 0;
       flex-wrap: wrap;
@@ -49,30 +49,33 @@
       border-radius: 10px;
       padding: 10px;
 
-      img{
+      img {
         width: 30%;
       }
 
-      .Description{
-        margin: 0 20px;
-        .Cost{
-          color: #8b8b8b;
-        }
-      }
-
-      .Counter{
+      .Description {
         display: flex;
-        align-self: center;
-        align-items: center;
-        margin-left: auto;
+        flex-direction: column;
+        .Text {
+          h3{
+          }
+          .Cost {
+            color: #8b8b8b;
+          }
+        }
 
-        div{
-          cursor: pointer;
-          margin: 0 5px;
+        .Counter {
+          display: flex;
+          align-items: center;
+  
+          div {
+            cursor: pointer;
+            margin: 0 5px;
+          }
         }
       }
 
-      .DeleteButton{
+      .DeleteButton {
         align-self: center;
         cursor: pointer;
         margin-left: 10px;
@@ -80,96 +83,94 @@
     }
   }
 
-  .CartFooter{
+  .CartFooter {
     margin: 5%;
     display: flex;
     justify-content: space-between;
 
-    .ButtonBuy{
+    .ButtonBuy {
       border: 1px solid #5891d4;
       color: #5891d4;
       border-radius: 10px;
       padding: 15px;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         background-color: #5891d4;
         color: white;
       }
     }
   }
-
 }
 
 @media (max-width: 700px) {
   .Cart {
     padding: 3% 7% 100px 7%;
-  
-    .CartHeader{
 
-      .CartText{
+    .CartHeader {
+      .CartText {
         font-size: 16px;
-  
-        img{
+
+        img {
           margin-right: 5px;
           width: 30%;
         }
       }
-  
-      .CartClear{
-        color:#8b8b8b;
+
+      .CartClear {
+        color: #8b8b8b;
         font-size: 13px;
         margin-left: 25%;
-  
-        img{
+
+        img {
           width: 15%;
         }
       }
     }
-  
-    .ProductsList{
-  
+
+    .ProductsList {
       .Product {
         width: 100%;
         margin: 5px 0;
-  
-        img{
+
+        img {
           width: 40%;
         }
-  
-        .Description{
-          font-size: 10px;
-          margin: 0 0 0 2%;
-          
-        }
-  
-        .Counter{
-          div{
-            margin: 0px;
+
+        .Description {
+          display: flex;
+          flex-direction: column;
+          .Text {
+            font-size: 10px;
+            margin: 0 0 0 2%;
+          }
+
+          .Counter {
+            div {
+              margin: 0px;
+            }
           }
         }
-
       }
     }
-  
-    .CartFooter{
+
+    .CartFooter {
       margin: 5%;
       display: flex;
       justify-content: space-between;
-  
-      .ButtonBuy{
+
+      .ButtonBuy {
         border: 1px solid #5891d4;
         color: #5891d4;
         border-radius: 10px;
         padding: 15px;
         cursor: pointer;
-  
-        &:hover{
+
+        &:hover {
           background-color: #5891d4;
           color: white;
         }
       }
     }
-  
   }
-  }
+}
