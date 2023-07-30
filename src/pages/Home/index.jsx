@@ -7,7 +7,7 @@ import Product from "../../components/Product/index";
 import Parameters from "../../components/Parameters/index";
 import Error from "../../components/Error/index";
 import Pagination from "../../components/Pagination/index";
-import { setPaginationId } from "../../store/pagination/paginationSlice";
+import { setPaginationId, setPaginationNull } from "../../store/pagination/paginationSlice";
 import { setParametersId } from "../../store/filter/filterSlice";
 import { setSearchValue } from "../../store/search/searchSlice";
 import { fetchItems } from "../../store/products/itemsSlice";
@@ -28,6 +28,7 @@ const Home = () => {
 
   const changeParameter = (id) => {
     dispatch(setParametersId(id));
+    dispatch(setPaginationNull())
   };
 
   const changePagination = (id) => {
