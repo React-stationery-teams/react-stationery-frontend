@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import{ useDispatch, useSelector} from "react-redux";
 
 import styles from "./Product.module.scss";
 
 import { ReactComponent as Add } from "../../assets/ico/add.svg";
 import { ReactComponent as Favorite } from "../../assets/ico/favorite.svg";
 import fullFavorite from "../../assets/ico/fullFavorite.png";
+
+import { setItems, removeItem } from "../../store/favorite/favoriteSlice";
+import { setCartItems } from "../../store/cart/cartSlice";
 
 const Product = ({
   id,
@@ -18,21 +22,18 @@ const Product = ({
   photos,
   description,
   property,
+  favorite,
   isAddToFavorite = false,
   isAddToCart = false,
-  setFavorite,
-  favorite,
-  setCart,
-  cart,
 }) => {
-  const [isAddedToFavorite, setIsAddedToFavorite] =
-    React.useState(isAddToFavorite);
+  const [isAddedToFavorite, setIsAddedToFavorite] = React.useState(isAddToFavorite);
   const [isAddedToCart, setIsAddedToCart] = React.useState(isAddToCart);
+  const dispatch = useDispatch();
 
   const changeToFavorite = async () => {
     if (favorite.find((obj) => obj.id === id)) {
       await axios.delete(`http://192.168.0.104:3001/favorite/${id}`);
-      setFavorite(favorite.filter((obj) => obj.id !== id));
+      dispatch(removeItem(id));
     } else {
       const { data } = await axios
         .post("http://192.168.0.104:3001/favorite", {
@@ -47,16 +48,12 @@ const Product = ({
           property: property,
         })
         .catch((error) => console.log(error));
-      setFavorite((prev) => [...prev, data]);
+      dispatch(setItems(data))
     }
     setIsAddedToFavorite(!isAddedToFavorite);
   };
 
-  const changeToCart = async () => {
-    if (cart.find((obj) => obj.id === id)) {
-      await axios.delete(`http://192.168.0.104:3001/cart/${id}`);
-      setCart(cart.filter((obj) => obj.id !== id));
-    } else {
+  const addToCart = async () => {
       const { data } = await axios
         .post("http://192.168.0.104:3001/cart", {
           id: id,
@@ -70,9 +67,9 @@ const Product = ({
           property: property,
         })
         .catch((error) => console.log(error));
-      setFavorite((prev) => [...prev, data]);
-    }
-    setIsAddedToCart(!isAddedToCart);
+        dispatch(setCartItems(data))
+
+    setIsAddedToCart(true);
   };
 
   return (
@@ -100,10 +97,16 @@ const Product = ({
         <div className={styles.price}>
           Цена: <div className={styles.cost}>{price} р.</div>
         </div>
-          <div onClick={() => changeToCart()} className={styles.button}>
+        {isAddedToCart ? (
+          <div className={styles.buttonAdded}>
+            <div className={styles.text}>В корзине</div>
+          </div>
+        ) : (
+          <div onClick={() => addToCart()} className={styles.button}>
             <Add className={styles.add} />
             <div className={styles.text}>В корзину</div>
           </div>
+        )}
       </div>
     </div>
   );

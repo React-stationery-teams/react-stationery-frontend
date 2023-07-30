@@ -8,7 +8,7 @@ export const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setParametersId: (state, action) => {
+    setParametersId(state, action){
         state.parameterId = action.payload
     },
   },

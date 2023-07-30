@@ -66,6 +66,21 @@
       }
     }
 
+    .buttonAdded{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #5891d4;
+      border: 1px solid #5891d4;
+      border-radius: 20px;
+      cursor: pointer;
+
+      .text{
+        color: white;
+      }
+    }
+
     .button {
       display: flex;
       align-items: center;

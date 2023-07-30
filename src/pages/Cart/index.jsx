@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button";
 import styles from "./Cart.module.scss";
@@ -12,29 +12,21 @@ import { ReactComponent as Plus } from "../../assets/ico/plus.svg";
 import { ReactComponent as Minus } from "../../assets/ico/minus.svg";
 import { ReactComponent as Delete } from "../../assets/ico/deleteIco.svg";
 
-import photo from "../../assets/photo-test/bigPhoto.png";
+import { clearCart, fetchCart } from "../../store/cart/cartSlice";
+import CartItem from "../../components/CartItem";
 
 const Cart = () => {
-  const [cart, setCart] = React.useState([]);
+  const totalPrice = useSelector(state => state.cart.totalPrice)
+  const cart = useSelector(state => state.cart.cartItems)
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    async function getData() {
-      try {
-        const url = "http://192.168.0.104:3001/cart";
-
-        await axios.get(url).then((res) => setCart(res.data));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getData();
+    dispatch(fetchCart())
   }, []);
 
-  const deleteItem = (id) => {
-    axios.delete(`http://192.168.0.104:3001/cart/${id}`);
-    setCart(cart.filter((obj) => obj.id !== id));
-  };
+  const clearAllCart = () => {
+    dispatch(clearCart());
+  }
 
   return cart.length !== 0 ? (
     <div className={styles.Cart}>
@@ -43,39 +35,17 @@ const Cart = () => {
           <img src={cartIco} alt="Корзина" />
           <h2>Корзина</h2>
         </div>
-        <div className={styles.CartClear}>
+        <div onClick={() => clearAllCart()} className={styles.CartClear}>
           <img src={clear} alt="Удалить" />
           <p>Очистить корзину</p>
         </div>
       </div>
       <div className={styles.ProductsList}>
         {cart.map((obj) => (
-          <div key={obj.id} className={styles.Product}>
-            <img src={obj.mainPhoto} alt="Товар" />
-            <div className={styles.Description}>
-              <div className={styles.Text}>
-                <h3>{obj.name}</h3>
-                <div className={styles.Cost}>Цена:{obj.price}р</div>
-              </div>
-              <div className={styles.Counter}>
-                <div>
-                  <Plus />
-                </div>
-                <div>1</div>
-                <div>
-                  <Minus />
-                </div>
-              </div>
-            </div>
-            <div
-              onClick={() => deleteItem(obj.id)}
-              className={styles.DeleteButton}
-            >
-              <Delete />
-            </div>
-          </div>
+          <CartItem key={obj.id} {...obj}/>
         ))}
       </div>
+      <h2>Сумма: {totalPrice}</h2>
       <div className={styles.CartFooter}>
         <Button ico={back} text="Вернуться" />
         <div className={styles.ButtonBuy}>Оплатить</div>

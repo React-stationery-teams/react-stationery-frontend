@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import{useSelector} from "react-redux";
 
 import styles from "./Header.module.scss";
 
@@ -10,20 +10,7 @@ import profile from "../../assets/ico/profile.svg";
 import logo from "../../assets/ico/logo.png";
 
 const Header = () => {
-  const [cart, setCart] = React.useState([]);
-
-  React.useEffect(() => {
-    async function getData() {
-    try{
-        const url = "http://192.168.0.104:3001/cart";
-
-        await axios.get(url).then((res) => setCart(res.data));
-      }catch(err){
-      console.log(err);
-    }}
-
-    getData();
-  }, [])
+  const cart = useSelector(state => state.cart.cartItems)
 
   return (
     <header>

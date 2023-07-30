@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Favorite.module.scss";
 
@@ -9,39 +9,51 @@ import ClearPage from "../../components/ClearPage";
 import smile from "../../assets/ico/favorite-smile.png";
 import arrow from "../../assets/ico/back.svg";
 import Product from "../../components/Product";
+import Error from "../../components/Error/index";
+
+import { fetchFavorite } from "../../store/favorite/favoriteSlice";
+import { fetchCart } from "../../store/cart/cartSlice";
+import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 
 const Favorite = () => {
-  const [favorite, setFavorite] = React.useState([]);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    async function getData() {
-      try {
-        const url = "http://192.168.0.104:3001/favorite";
-
-        await axios.get(url).then((res) => setFavorite(res.data));
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getData();
+    dispatch(fetchFavorite());
+    dispatch(fetchCart());
   }, []);
-  return favorite.length === 0 ? (
-      <ClearPage
-        header={"Закладки пустые"}
-        text={"Вероятней всего, вы ещё ничего не добавляли в закладки."}
-        smile={smile}
-      />
-  ) : (
+
+  const { favoriteItems, favoriteStatus } = useSelector((state) => state.favorite);
+  const {cartStatus, cartItems}= useSelector((state) => state.cart);
+
+  return (
     <div className={styles.favorite}>
       <div className={styles.header}>
         <Link to="/" className={styles.back}>
-          <img src={arrow} alt="Вернуться"/>
+          <img src={arrow} alt="Вернуться" />
         </Link>
         <h3>Мои закладки</h3>
       </div>
       <div className={styles.productList}>
-        {favorite.map((obj) => <Product setFavorite={setFavorite} favorite={favorite} isAddToFavorite={favorite.some((product) => obj.id === product.id )}  key={obj.id} {...obj} />)}
+      {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4).map(() => <ItemSkeleton />)] : favoriteStatus === "success" && cartStatus === "success" ? (
+          favoriteItems.map((obj) => (
+            <Product
+              cart={cartItems}
+              favorite={favoriteItems}
+              isAddToFavorite={favoriteItems.some(
+                (product) => obj.id === product.id
+              )}
+              isAddToCart={cartItems.some((product) => obj.id === product.id)}
+              key={obj.id}
+              {...obj}
+            />
+          ))
+        ) : favoriteStatus === "error" && (
+              <Error
+                header={"Упс! Пустота..."}
+                text={"Ошибка #404"}
+              />
+            )}
       </div>
     </div>
   );
