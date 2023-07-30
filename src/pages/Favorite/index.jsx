@@ -26,7 +26,7 @@ const Favorite = () => {
   const { favoriteItems, favoriteStatus } = useSelector((state) => state.favorite);
   const {cartStatus, cartItems}= useSelector((state) => state.cart);
 
-  return (
+  return favoriteStatus === "success" && favoriteItems.length !== 0 ?(
     <div className={styles.favorite}>
       <div className={styles.header}>
         <Link to="/" className={styles.back}>
@@ -56,7 +56,7 @@ const Favorite = () => {
             )}
       </div>
     </div>
-  );
+  ) : <ClearPage header={"Упс! Пустота..."} text={"Похоже вы еще не добавляли товаров в закладки"} smile={smile}/>;
 };
 
 export default Favorite;

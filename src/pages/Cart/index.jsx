@@ -14,6 +14,7 @@ import { ReactComponent as Delete } from "../../assets/ico/deleteIco.svg";
 
 import { clearCart, fetchCart } from "../../store/cart/cartSlice";
 import CartItem from "../../components/CartItem";
+import axios from "axios";
 
 const Cart = () => {
   const totalPrice = useSelector(state => state.cart.totalPrice)
@@ -25,6 +26,7 @@ const Cart = () => {
   }, []);
 
   const clearAllCart = () => {
+    cart.forEach((obj) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
     dispatch(clearCart());
   }
 

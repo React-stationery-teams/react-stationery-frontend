@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Home.module.scss";
@@ -28,7 +27,7 @@ const Home = () => {
 
   const changeParameter = (id) => {
     dispatch(setParametersId(id));
-    dispatch(setPaginationNull())
+    dispatch(setPaginationNull());
   };
 
   const changePagination = (id) => {
@@ -108,15 +107,5 @@ const Home = () => {
     </>
   );
 };
-
-/* <Product
-              isAddToFavorite={favorite.some(
-                (product) => obj.id === product.id
-              )}
-              isAddToCart={cart.some((product) => obj.id === product.id)}
-              key={obj.id}
-              favorite={favorite}
-              {...obj}
-            /> */
 
 export default Home;
