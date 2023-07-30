@@ -20,6 +20,7 @@ const Cart = () => {
   const totalPrice = useSelector(state => state.cart.totalPrice)
   const cart = useSelector(state => state.cart.cartItems)
   const dispatch = useDispatch();
+  console.log(cart)
 
   React.useEffect(() => {
     dispatch(fetchCart())

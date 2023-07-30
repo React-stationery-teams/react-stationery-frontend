@@ -65,6 +65,7 @@ const Product = ({
           photos: photos,
           description: description,
           property: property,
+          count: 1
         })
         .catch((error) => console.log(error));
         dispatch(setCartItems(data))
