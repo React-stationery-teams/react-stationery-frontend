@@ -24,6 +24,7 @@ const Home = () => {
   const productLength = useSelector((state) => state.productsLength.items);
   const {favoriteItems, favoriteStatus} = useSelector((state) => state.favorite);
   const {cartItems, cartStatus} = useSelector((state) => state.cart);
+  const [inputValue, setInputValue] = React.useState('');
 
   const changeParameter = (id) => {
     dispatch(setParametersId(id));
@@ -51,9 +52,6 @@ const Home = () => {
         paginationValue,
       })
     );
-  }, [parameter, search, paginationValue]);
-
-  React.useEffect(() => {
     dispatch(fetchCart());
     dispatch(fetchFavorite());
     dispatch(
@@ -62,6 +60,7 @@ const Home = () => {
         search,
       })
     );
+    setInputValue(searchValue)
   }, [parameter, search, paginationValue]);
 
   return (
@@ -70,6 +69,8 @@ const Home = () => {
         search={search}
         changeParameter={changeParameter}
         changeSearchValue={changeSearchValue}
+        setSearchValue={setInputValue}
+        searchValue={inputValue}
       />
       <h3>Все товары</h3>
       <div className={styles.productList}>
@@ -87,12 +88,9 @@ const Home = () => {
                 {...obj}
               />
             ))
-          : status === "error" && (
-              <Error
-                header={"Упс! Пустота..."}
-                text={"Ошибка #404"}
-              />
-            )}
+          : status === "error" || favoriteStatus === "error" || cartStatus === "error" ? (
+            <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>
+            ) : null}
       </div>
       {productLength.length >= 8 ? (
         <Pagination

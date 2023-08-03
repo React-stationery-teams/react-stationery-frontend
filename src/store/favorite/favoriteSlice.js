@@ -31,7 +31,7 @@ export const favoriteSlice = createSlice({
         },
         [fetchFavorite.fulfilled]: (state, action) => {
             state.favoriteItems = action.payload;
-            state.favoriteStatus = 'success'
+            state.favoriteStatus = 'success';
         },
         [fetchFavorite.rejected]: (state) => {
             state.favoriteStatus = 'error';

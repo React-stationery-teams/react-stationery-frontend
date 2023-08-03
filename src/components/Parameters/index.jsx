@@ -8,10 +8,9 @@ import clear from "../../assets/ico/trash.png"
 
 import searchImg from "../../assets/ico/search.svg";
 
-const Parameters = ({ changeParameter, changeSearchValue }) => {
+const Parameters = ({ changeParameter, changeSearchValue, setSearchValue, searchValue}) => {
   const [parameters, setParameters] = React.useState([]);
   const [error, setError] = React.useState("");
-  const [searchValue, setSearchValue] = React.useState('');
 
   //получение параметров фильтрации
   React.useEffect(() => {

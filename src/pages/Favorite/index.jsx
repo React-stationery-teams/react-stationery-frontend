@@ -23,10 +23,10 @@ const Favorite = () => {
     dispatch(fetchCart());
   }, []);
 
-  const { favoriteItems, favoriteStatus } = useSelector((state) => state.favorite);
+  const { favoriteItems, favoriteStatus} = useSelector((state) => state.favorite);
   const {cartStatus, cartItems}= useSelector((state) => state.cart);
 
-  return favoriteStatus === "success" && favoriteItems.length !== 0 ?(
+  return (
     <div className={styles.favorite}>
       <div className={styles.header}>
         <Link to="/" className={styles.back}>
@@ -35,7 +35,7 @@ const Favorite = () => {
         <h3>Мои закладки</h3>
       </div>
       <div className={styles.productList}>
-      {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4).map(() => <ItemSkeleton />)] : favoriteStatus === "success" && cartStatus === "success" ? (
+      {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4)].map(() => <ItemSkeleton />) : favoriteStatus === "success" && cartStatus === "success" ? (
           favoriteItems.map((obj) => (
             <Product
               cart={cartItems}
@@ -48,15 +48,11 @@ const Favorite = () => {
               {...obj}
             />
           ))
-        ) : favoriteStatus === "error" && (
-              <Error
-                header={"Упс! Пустота..."}
-                text={"Ошибка #404"}
-              />
-            )}
+        ) : <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>}
       </div>
     </div>
-  ) : <ClearPage header={"Упс! Пустота..."} text={"Похоже вы еще не добавляли товаров в закладки"} smile={smile}/>;
+  )
 };
 
 export default Favorite;
+

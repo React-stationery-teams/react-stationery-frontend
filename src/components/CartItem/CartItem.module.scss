@@ -2,7 +2,6 @@
   width: 80%;
   display: flex;
   margin: 10px 0;
-  flex-wrap: wrap;
   align-items: flex-start;
   border: 1px solid grey;
   border-radius: 10px;
@@ -13,6 +12,7 @@
   }
 
   .Description {
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     .Text {
@@ -37,11 +37,12 @@
   .DeleteButton {
     align-self: center;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right: 10px;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .Product {
     width: 100%;
     margin: 5px 0;
@@ -60,7 +61,8 @@
 
       .Counter {
         div {
-          margin: 0px;
+          margin: 10px 5px 0 5px;
+
         }
       }
     }
