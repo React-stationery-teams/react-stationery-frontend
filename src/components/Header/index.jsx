@@ -10,7 +10,7 @@ import profile from "../../assets/ico/profile.svg";
 import logo from "../../assets/ico/logo.png";
 
 const Header = () => {
-  const cart = useSelector(state => state.cart.cartItems)
+  const {cartItems} = useSelector(state => state.cart)
 
   return (
     <header>
@@ -23,7 +23,7 @@ const Header = () => {
         <div className={styles.cost}>
           <h5>1578 р.</h5>
           <Link to="/cart">
-            {cart.length > 0 ? <div className={styles.backgroundAlert}><div className={styles.textAlert}>{cart.length}</div></div> : ''}
+            {cartItems.length > 0 ? <div className={styles.backgroundAlert}><div className={styles.textAlert}>{cartItems.length}</div></div> : ''}
             <img src={cartImg} alt="Корзина" />
           </Link>
         </div>

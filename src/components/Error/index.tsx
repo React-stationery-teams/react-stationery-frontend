@@ -5,7 +5,12 @@ import styles from "./Error.module.scss";
 import ClearPage from "../ClearPage/index";
 import smile from "../../assets/ico/error-smile.png";
 
-const Erorr = ({header, text}) => {
+type ErrorProps = {
+  header: string,
+  text: string
+}
+
+const Error: React.FC<ErrorProps> = ({header, text}) => {
   return (
     <div className={styles.error}>
         <ClearPage
@@ -17,4 +22,4 @@ const Erorr = ({header, text}) => {
   )
 }
 
-export default Erorr;
+export default Error;

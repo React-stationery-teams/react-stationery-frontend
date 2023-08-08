@@ -3,9 +3,14 @@ import ReactPaginate from 'react-paginate';
 
 import styles from "./Pagination.module.scss";
 
-const Pagination = ({changePagination, length}) => {
+type PaginationProps = {
+  changePagination: any,
+  length: number
+}
 
-    const clickPagination = (event) => {
+const Pagination: React.FC<PaginationProps> = ({changePagination, length}) => {
+
+    const clickPagination = (event: number) => {
         changePagination(event+1)
         window.scrollTo(0, 0);
       }

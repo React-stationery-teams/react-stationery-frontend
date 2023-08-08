@@ -1,9 +1,15 @@
 import React from 'react';
 
 import styles from "./ClearPage.module.scss";
-import Button from "../../components/Button/index";
+import Button from "../Button/index";
 
-const ClearPage = ({smile, header, text}) => {
+type ClearPageProps = {
+  smile: string,
+  header: string,
+  text: string
+}
+
+const ClearPage: React.FC<ClearPageProps> = ({smile, header, text}) => {
   return (
     <div className={styles.profile}>
     <div className={styles.header}>

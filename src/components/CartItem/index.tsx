@@ -12,7 +12,21 @@ import {
   removeItem,
 } from "../../store/cart/cartSlice";
 
-const CartItem = ({ id, mainPhoto, name, price, count }) => {
+type CartItemProps = {
+  id: string;
+  mainPhoto: string;
+  name: string;
+  price: number;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({
+  id,
+  mainPhoto,
+  name,
+  price,
+  count,
+}) => {
   const dispatch = useDispatch();
 
   const deleteItem = () => {

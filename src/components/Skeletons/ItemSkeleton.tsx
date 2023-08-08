@@ -1,7 +1,11 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
 
-const ItemSkeleton = (props) => (
+type ItemSkeletonProps = {
+  props: any
+}
+
+const ItemSkeleton: React.FC<ItemSkeletonProps> = (props) => (
   <ContentLoader 
     speed={2}
     width={300}
