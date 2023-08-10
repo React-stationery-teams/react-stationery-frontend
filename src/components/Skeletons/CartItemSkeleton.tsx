@@ -2,7 +2,7 @@ import React from "react"
 import ContentLoader from "react-content-loader"
 
 
-const ItemSkeleton: React.FC = () => (
+const CartItemSkeleton: React.FC = () => (
   <ContentLoader 
     speed={2}
     width={300}
@@ -15,4 +15,4 @@ const ItemSkeleton: React.FC = () => (
   </ContentLoader>
 )
 
-export default ItemSkeleton
+export default CartItemSkeleton

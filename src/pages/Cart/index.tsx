@@ -3,35 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button";
 import styles from "./Cart.module.scss";
-import back from "../../assets/ico/back.svg";
 import cartIco from "../../assets/ico/basket-black.svg";
 import clear from "../../assets/ico/trash.png";
 import ClearPage from "../../components/ClearPage";
 import smile from "../../assets/ico/favorite-smile.png";
-import { ReactComponent as Plus } from "../../assets/ico/plus.svg";
-import { ReactComponent as Minus } from "../../assets/ico/minus.svg";
-import { ReactComponent as Delete } from "../../assets/ico/deleteIco.svg";
+import { selectCart } from "../../store/cart/cartSlice";
 
 import { clearCart, fetchCart } from "../../store/cart/cartSlice";
 import CartItem from "../../components/CartItem";
 import axios from "axios";
 
-const Cart = () => {
-  const totalPrice = useSelector(state => state.cart.totalPrice)
-  const cart = useSelector(state => state.cart.cartItems)
+const Cart: React.FC = () => {
+  const {totalPrice, cartItems} = useSelector(selectCart)
   const dispatch = useDispatch();
-  console.log(cart)
+  console.log(cartItems)
 
   React.useEffect(() => {
-    dispatch(fetchCart())
+    dispatch(//@ts-ignore
+    fetchCart())
   }, []);
 
   const clearAllCart = () => {
-    cart.forEach((obj) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
+    cartItems.forEach((obj: any) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
     dispatch(clearCart());
   }
 
-  return cart.length !== 0 ? (
+  return cartItems.length !== 0 ? (
     <div className={styles.Cart}>
       <div className={styles.CartHeader}>
         <div className={styles.CartText}>
@@ -44,13 +41,13 @@ const Cart = () => {
         </div>
       </div>
       <div className={styles.ProductsList}>
-        {cart.map((obj) => (
+        {cartItems.map((obj: any) => (
           <CartItem key={obj.id} {...obj}/>
         ))}
       </div>
       <h2>Сумма: {totalPrice}</h2>
       <div className={styles.CartFooter}>
-        <Button ico={back} text="Вернуться" />
+        <Button text="Вернуться" />
         <div className={styles.ButtonBuy}>Оплатить</div>
       </div>
     </div>

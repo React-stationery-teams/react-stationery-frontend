@@ -3,12 +3,23 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 
 import styles from "./Parameters.module.scss";
-import Erorr from "../Error/index";
-import clear from "../../assets/ico/trash.png"
+import Error from "../Error/index";
 
 import searchImg from "../../assets/ico/search.svg";
 
-const Parameters = ({ changeParameter, changeSearchValue, setSearchValue, searchValue}) => {
+type ParameterProps = {
+  changeParameter: (id: number) => void,
+  changeSearchValue: (value: string) => void,
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>,
+  searchValue: string
+};
+
+const Parameters: React.FC<ParameterProps> = ({
+  changeParameter,
+  changeSearchValue,
+  setSearchValue,
+  searchValue,
+}) => {
   const [parameters, setParameters] = React.useState([]);
   const [error, setError] = React.useState("");
 
@@ -20,7 +31,7 @@ const Parameters = ({ changeParameter, changeSearchValue, setSearchValue, search
         await axios.get(apiUrl).then((res) => {
           setParameters(res.data);
         });
-      } catch (err) {
+      } catch (err: any) {
         setError(err.message);
         console.log(err);
       }
@@ -30,31 +41,31 @@ const Parameters = ({ changeParameter, changeSearchValue, setSearchValue, search
   }, []);
 
   const updateSearchValue = React.useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       changeSearchValue(str);
     }, 700),
     []
   );
 
-  const onChangeInput = (event) => {
-    setSearchValue(event.target.value)
-    updateSearchValue(event.target.value)
-  }
+  const onChangeInput = (event: any) => {
+    setSearchValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
 
   const clearSearchValue = () => {
-    changeSearchValue('')
-    setSearchValue('')
-  }
+    changeSearchValue("");
+    setSearchValue("");
+  };
 
   return error !== "" ? (
-    <Erorr
+    <Error
       header={error}
       text={"Похоже возникли непредвиденные обстоятельства :("}
     />
   ) : (
     <div className={styles.parameters}>
       <div className={styles.parametersBlock}>
-        {parameters.map((obj) => (
+        {parameters.map((obj: any) => (
           <div
             key={obj.id}
             onClick={() => changeParameter(obj.id)}
@@ -72,7 +83,11 @@ const Parameters = ({ changeParameter, changeSearchValue, setSearchValue, search
           onChange={onChangeInput}
           placeholder="Название товара..."
         />
-        {searchValue ? <div src={clear} className={styles.clearInput} onClick={() => clearSearchValue()} alt="Очистить">X</div> : null}
+        {searchValue ? (
+          <div className={styles.clearInput} onClick={() => clearSearchValue()}>
+            X
+          </div>
+        ) : null}
       </div>
     </div>
   );

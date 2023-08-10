@@ -14,6 +14,8 @@ export const filterSlice = createSlice({
   },
 })
 
+export const selectParametersId = (state) => state.filter
+
 
 export const {setParametersId } = filterSlice.actions
 

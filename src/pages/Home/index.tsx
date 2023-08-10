@@ -6,67 +6,74 @@ import Product from "../../components/Product/index";
 import Parameters from "../../components/Parameters/index";
 import Error from "../../components/Error/index";
 import Pagination from "../../components/Pagination/index";
-import { setPaginationId, setPaginationNull } from "../../store/pagination/paginationSlice";
-import { setParametersId } from "../../store/filter/filterSlice";
-import { setSearchValue } from "../../store/search/searchSlice";
+import { selectPaginationId, setPaginationId, setPaginationNull } from "../../store/pagination/paginationSlice";
+import { selectParametersId, setParametersId } from "../../store/filter/filterSlice";
+import { selectSearch, setSearchValue } from "../../store/search/searchSlice";
 import { fetchItems } from "../../store/products/itemsSlice";
 import { fetchCart } from "../../store/cart/cartSlice";
-import { fetchFavorite } from "../../store/favorite/favoriteSlice";
-import { fetchItemsLength } from "../../store/cartLength/productsLengthSlice";
+import { fetchFavorite, selectFavorite } from "../../store/favorite/favoriteSlice";
+import { fetchItemsLength, selectAllProducts } from "../../store/productsLength/productsLengthSlice";
 import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
+import { selectCart } from "../../store/cart/cartSlice";
+import { selectItems } from "../../store/products/itemsSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const parameterId = useSelector((state) => state.filter.parameterId);
-  const paginationId = useSelector((state) => state.pagination.paginationId);
-  const searchValue = useSelector((state) => state.search.value);
-  const { items, status } = useSelector((state) => state.items);
-  const productLength = useSelector((state) => state.productsLength.items);
-  const {favoriteItems, favoriteStatus} = useSelector((state) => state.favorite);
-  const {cartItems, cartStatus} = useSelector((state) => state.cart);
+  const {parameterId} = useSelector(selectParametersId);
+  const {paginationId} = useSelector(selectPaginationId);
+  const {value} = useSelector(selectSearch);
+  const { items, status } = useSelector(selectItems);
+  const {allProducts} = useSelector(selectAllProducts);
+  const {favoriteItems, favoriteStatus} = useSelector(selectFavorite);
+  const {cartItems, cartStatus} = useSelector(selectCart);
   const [inputValue, setInputValue] = React.useState('');
 
-  const changeParameter = (id) => {
+  const changeParameter = (id: number) => {
     dispatch(setParametersId(id));
     dispatch(setPaginationNull());
   };
 
-  const changePagination = (id) => {
+  const changePagination = (id: number) => {
     dispatch(setPaginationId(id));
   };
 
-  const changeSearchValue = (value) => {
+  const changeSearchValue = (value: string) => {
     dispatch(setSearchValue(value));
   };
 
   const parameter = parameterId > 0 ? `type=${parameterId}` : "";
-  const search = searchValue ? `name_like=${searchValue}` : "";
+  const search = value ? `name_like=${value}` : "";
   const paginationValue = `_page=${paginationId}&_limit=8`;
 
   //получение товаров
   React.useEffect(() => {
     dispatch(
+      //@ts-ignore
       fetchItems({
         parameter,
         search,
         paginationValue,
       })
     );
-    dispatch(fetchCart());
-    dispatch(fetchFavorite());
     dispatch(
+      //@ts-ignore
+      fetchCart());
+    dispatch(
+      //@ts-ignore
+      fetchFavorite());
+    dispatch(
+      //@ts-ignore
       fetchItemsLength({
         parameter,
         search,
       })
     );
-    setInputValue(searchValue)
+    setInputValue(value)
   }, [parameter, search, paginationValue]);
 
   return (
     <>
       <Parameters
-        search={search}
         changeParameter={changeParameter}
         changeSearchValue={changeSearchValue}
         setSearchValue={setInputValue}
@@ -77,12 +84,12 @@ const Home = () => {
         {status === "loading"
           ? [...new Array(8)].map(() => <ItemSkeleton />)
           : status === "success" && cartStatus === "success" && favoriteStatus === "success"
-          ? items.map((obj) => (
+          ? items.map((obj: any) => (
               <Product
                 isAddToFavorite={favoriteItems.some(
-                  (product) => obj.id === product.id
+                  (product:any) => obj.id === product.id
                 )}
-                isAddToCart={cartItems.some((product) => obj.id === product.id)}
+                isAddToCart={cartItems.some((product: any) => obj.id === product.id)}
                 key={obj.id}
                 favorite={favoriteItems}
                 {...obj}
@@ -92,11 +99,9 @@ const Home = () => {
             <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>
             ) : null}
       </div>
-      {productLength.length >= 8 ? (
+      {allProducts.length >= 8 ? (
         <Pagination
-          length={productLength.length}
-          search={search}
-          selectParameter={parameterId}
+          length={allProducts.length}
           changePagination={changePagination}
         />
       ) : (

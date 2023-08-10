@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import styles from "./Button.module.scss";
 
 type ButtonProps = {
-  text: string,
-  ico?: string
+  text: string
 }
 
-const Button: React.FC<ButtonProps> = ({text, ico}) => {
+const Button: React.FC<ButtonProps> = ({text}) => {
   return (
     <Link to="/" className={styles.background}>
         <div className={styles.text}>{text}</div>

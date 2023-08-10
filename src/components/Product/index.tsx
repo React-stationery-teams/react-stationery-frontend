@@ -12,7 +12,22 @@ import fullFavorite from "../../assets/ico/fullFavorite.png";
 import { setItems, removeItem } from "../../store/favorite/favoriteSlice";
 import { setCartItems } from "../../store/cart/cartSlice";
 
-const Product = ({
+type ProductProps = {
+  id: string,
+  name: string,
+  price: number,
+  type: number,
+  weight: string,
+  mainPhoto: string,
+  photos: string[],
+  description: string,
+  property: string,
+  favorite: [],
+  isAddToFavorite: boolean,
+  isAddToCart: boolean,
+}
+
+const Product: React.FC<ProductProps> = ({
   id,
   name,
   price,
@@ -31,11 +46,11 @@ const Product = ({
   const dispatch = useDispatch();
 
   const changeToFavorite = async () => {
-    if (favorite.find((obj) => obj.id === id)) {
+    if (favorite.find((obj: any) => obj.id === id)) {
       await axios.delete(`http://192.168.0.104:3001/favorite/${id}`);
       dispatch(removeItem(id));
     } else {
-      const { data } = await axios
+      const resp: any = await axios
         .post("http://192.168.0.104:3001/favorite", {
           id: id,
           name: name,
@@ -48,13 +63,13 @@ const Product = ({
           property: property,
         })
         .catch((error) => console.log(error));
-      dispatch(setItems(data))
+      dispatch(setItems(resp.data))
     }
     setIsAddedToFavorite(!isAddedToFavorite);
   };
 
   const addToCart = async () => {
-      const { data } = await axios
+      const resp: any = await axios
         .post("http://192.168.0.104:3001/cart", {
           id: id,
           name: name,
@@ -68,7 +83,7 @@ const Product = ({
           count: 1
         })
         .catch((error) => console.log(error));
-        dispatch(setCartItems(data))
+        dispatch(setCartItems(resp.data))
 
     setIsAddedToCart(true);
   };

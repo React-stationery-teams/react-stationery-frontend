@@ -8,9 +8,10 @@ import cartImg from "../../assets/ico/basket.svg";
 import favorite from "../../assets/ico/favorite.svg";
 import profile from "../../assets/ico/profile.svg";
 import logo from "../../assets/ico/logo.png";
+import { selectCart } from "../../store/cart/cartSlice";
 
-const Header = () => {
-  const {cartItems} = useSelector(state => state.cart)
+const Header: React.FC = () => {
+  const {cartItems} = useSelector(selectCart)
 
   return (
     <header>

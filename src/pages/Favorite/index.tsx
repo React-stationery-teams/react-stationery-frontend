@@ -14,17 +14,21 @@ import Error from "../../components/Error/index";
 import { fetchFavorite } from "../../store/favorite/favoriteSlice";
 import { fetchCart } from "../../store/cart/cartSlice";
 import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
+import { selectCart } from "../../store/cart/cartSlice";
+import { selectFavorite } from "../../store/favorite/favoriteSlice";
 
-const Favorite = () => {
+const Favorite: React.FC = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchFavorite());
-    dispatch(fetchCart());
+    dispatch(//@ts-ignore
+    fetchFavorite());
+    dispatch(//@ts-ignore
+    fetchCart());
   }, []);
 
-  const { favoriteItems, favoriteStatus} = useSelector((state) => state.favorite);
-  const {cartStatus, cartItems}= useSelector((state) => state.cart);
+  const { favoriteItems, favoriteStatus} = useSelector(selectFavorite);
+  const {cartStatus, cartItems}= useSelector(selectCart);
 
   return (
     <div className={styles.favorite}>
@@ -36,14 +40,14 @@ const Favorite = () => {
       </div>
       <div className={styles.productList}>
       {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4)].map(() => <ItemSkeleton />) : favoriteStatus === "success" && cartStatus === "success" ? (
-          favoriteItems.map((obj) => (
+          favoriteItems.map((obj:any) => (
             <Product
               cart={cartItems}
               favorite={favoriteItems}
               isAddToFavorite={favoriteItems.some(
-                (product) => obj.id === product.id
+                (product: any) => obj.id === product.id
               )}
-              isAddToCart={cartItems.some((product) => obj.id === product.id)}
+              isAddToCart={cartItems.some((product:any) => obj.id === product.id)}
               key={obj.id}
               {...obj}
             />

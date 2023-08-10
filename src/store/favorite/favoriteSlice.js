@@ -40,6 +40,8 @@ export const favoriteSlice = createSlice({
     },
 })
 
+export const selectFavorite = (state) => state.favorite
+
 export const {setItems, removeItem} = favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

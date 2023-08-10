@@ -4,7 +4,7 @@ import pagination from "./pagination/paginationSlice.js"
 import search from "./search/searchSlice";
 import cart from "./cart/cartSlice";
 import items from "./products/itemsSlice";
-import productsLength from "./cartLength/productsLengthSlice";
+import productsLength from "./productsLength/productsLengthSlice";
 import favorite from "./favorite/favoriteSlice";
 
 export const store = configureStore({

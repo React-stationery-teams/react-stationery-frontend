@@ -13,7 +13,7 @@ export const fetchItemsLength = createAsyncThunk(
 )
 
 const initialState = {
-    items: [],
+    allProducts: [],
 };
 
 const productsLengthSlice = createSlice({
@@ -21,9 +21,11 @@ const productsLengthSlice = createSlice({
     initialState,
     extraReducers: {
         [fetchItemsLength.fulfilled]: (state, action) => {
-            state.items = action.payload;
+            state.allProducts = action.payload;
         }
     },
 });
+
+export const selectAllProducts = (state) => state.productsLength
 
 export default productsLengthSlice.reducer; 
