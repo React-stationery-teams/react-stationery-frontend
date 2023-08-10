@@ -47,7 +47,7 @@ const Parameters: React.FC<ParameterProps> = ({
     []
   );
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
     updateSearchValue(event.target.value);
   };
