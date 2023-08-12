@@ -2,10 +2,13 @@ import React from "react";
 import { useSelector} from "react-redux";
 
 import styles from "./Home.module.scss";
+
 import Product from "../../components/Product/index";
 import Parameters from "../../components/Parameters/index";
 import Error from "../../components/Error/index";
 import Pagination from "../../components/Pagination/index";
+import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
+
 import { selectPaginationId, setPaginationId, setPaginationNull } from "../../store/pagination/paginationSlice";
 import { selectParametersId, setParametersId } from "../../store/filter/filterSlice";
 import { selectSearch, setSearchValue } from "../../store/search/searchSlice";
@@ -13,7 +16,6 @@ import { fetchItems } from "../../store/products/itemsSlice";
 import { fetchCart } from "../../store/cart/cartSlice";
 import { fetchFavorite, selectFavorite } from "../../store/favorite/favoriteSlice";
 import { fetchItemsLength, selectAllProducts } from "../../store/productsLength/productsLengthSlice";
-import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import { selectCart } from "../../store/cart/cartSlice";
 import { selectItems } from "../../store/products/itemsSlice";
 import { useAppDispatch } from "../../store/store";
@@ -69,12 +71,12 @@ const Home: React.FC = () => {
         {status === "loading"
           ? [...new Array(8)].map(() => <ItemSkeleton />)
           : status === "success" && cartStatus === "success" && favoriteStatus === "success"
-          ? items.map((obj: any) => (
+          ? items.map((obj) => (
               <Product
                 isAddToFavorite={favoriteItems.some(
-                  (product:any) => obj.id === product.id
+                  (product) => obj.id === product.id
                 )}
-                isAddToCart={cartItems.some((product: any) => obj.id === product.id)}
+                isAddToCart={cartItems.some((product) => obj.id === product.id)}
                 key={obj.id}
                 favorite={favoriteItems}
                 {...obj}

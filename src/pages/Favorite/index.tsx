@@ -3,17 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector} from "react-redux";
 
 import styles from "./Favorite.module.scss";
-
-import ClearPage from "../../components/ClearPage";
-
-import smile from "../../assets/ico/favorite-smile.png";
 import arrow from "../../assets/ico/back.svg";
+
+import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import Product from "../../components/Product";
 import Error from "../../components/Error/index";
 
 import { fetchFavorite } from "../../store/favorite/favoriteSlice";
 import { fetchCart } from "../../store/cart/cartSlice";
-import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import { selectCart } from "../../store/cart/cartSlice";
 import { selectFavorite } from "../../store/favorite/favoriteSlice";
 import { useAppDispatch } from "../../store/store";
@@ -39,14 +36,13 @@ const Favorite: React.FC = () => {
       </div>
       <div className={styles.productList}>
       {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4)].map(() => <ItemSkeleton />) : favoriteStatus === "success" && cartStatus === "success" ? (
-          favoriteItems.map((obj:any) => (
+          favoriteItems.map((obj) => (
             <Product
-              cart={cartItems}
               favorite={favoriteItems}
               isAddToFavorite={favoriteItems.some(
-                (product: any) => obj.id === product.id
+                (product) => obj.id === product.id
               )}
-              isAddToCart={cartItems.some((product:any) => obj.id === product.id)}
+              isAddToCart={cartItems.some((product) => obj.id === product.id)}
               key={obj.id}
               {...obj}
             />

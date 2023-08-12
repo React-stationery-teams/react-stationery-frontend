@@ -1,17 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
-import Button from "../../components/Button";
 import styles from "./Cart.module.scss";
+
+
 import cartIco from "../../assets/ico/basket-black.svg";
 import clear from "../../assets/ico/trash.png";
-import ClearPage from "../../components/ClearPage";
 import smile from "../../assets/ico/favorite-smile.png";
-import { selectCart } from "../../store/cart/cartSlice";
 
-import { clearCart, fetchCart } from "../../store/cart/cartSlice";
+import Button from "../../components/Button";
+import ClearPage from "../../components/ClearPage";
 import CartItem from "../../components/CartItem";
-import axios from "axios";
+
+import { selectCart } from "../../store/cart/cartSlice";
+import { clearCart, fetchCart } from "../../store/cart/cartSlice";
 import { useAppDispatch } from "../../store/store";
 
 const Cart: React.FC = () => {
@@ -24,7 +27,7 @@ const Cart: React.FC = () => {
   }, []);
 
   const clearAllCart = () => {
-    cartItems.forEach((obj: any) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
+    cartItems.forEach((obj) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
     dispatch(clearCart());
   }
 
@@ -41,7 +44,7 @@ const Cart: React.FC = () => {
         </div>
       </div>
       <div className={styles.ProductsList}>
-        {cartItems.map((obj: any) => (
+        {cartItems.map((obj) => (
           <CartItem key={obj.id} {...obj}/>
         ))}
       </div>

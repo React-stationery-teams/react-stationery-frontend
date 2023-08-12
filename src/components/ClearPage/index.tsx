@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from "./ClearPage.module.scss";
+
 import Button from "../Button/index";
 
 type ClearPageProps = {

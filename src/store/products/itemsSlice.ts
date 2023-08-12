@@ -15,7 +15,7 @@ export const fetchItems = createAsyncThunk<ItemProps[], Record<string, string>>(
     }
 )
 
-type ItemProps = {
+export type ItemProps = {
     id: string;
     mainPhoto: string;
     name: string;

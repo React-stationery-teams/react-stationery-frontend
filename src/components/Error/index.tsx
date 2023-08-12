@@ -3,6 +3,7 @@ import React from 'react';
 import styles from "./Error.module.scss";
 
 import ClearPage from "../ClearPage/index";
+
 import smile from "../../assets/ico/error-smile.png";
 
 type ErrorProps = {

@@ -1,17 +1,50 @@
 import React from "react";
-import axios from "axios";
 import debounce from "lodash.debounce";
 
 import styles from "./Parameters.module.scss";
-import Error from "../Error/index";
 
 import searchImg from "../../assets/ico/search.svg";
 
+const parameters = [
+  {
+    id: 0,
+    name: "Все",
+  },
+  {
+    id: 1,
+    name: "Для школы",
+  },
+  {
+    id: 2,
+    name: "Для офиса",
+  },
+  {
+    id: 3,
+    name: "Для черчения",
+  },
+  {
+    id: 4,
+    name: "Календари",
+  },
+  {
+    id: 5,
+    name: "Альбомы",
+  },
+  {
+    id: 6,
+    name: "Обложки и закладки",
+  },
+  {
+    id: 7,
+    name: "Блокноты и ежедневники",
+  },
+];
+
 type ParameterProps = {
-  changeParameter: (id: number) => void,
-  changeSearchValue: (value: string) => void,
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>,
-  searchValue: string
+  changeParameter: (id: number) => void;
+  changeSearchValue: (value: string) => void;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  searchValue: string;
 };
 
 const Parameters: React.FC<ParameterProps> = ({
@@ -20,26 +53,6 @@ const Parameters: React.FC<ParameterProps> = ({
   setSearchValue,
   searchValue,
 }) => {
-  const [parameters, setParameters] = React.useState([]);
-  const [error, setError] = React.useState("");
-
-  //получение параметров фильтрации
-  React.useEffect(() => {
-    async function getData() {
-      let apiUrl = "http://192.168.0.104:3001/parameters";
-      try {
-        await axios.get(apiUrl).then((res) => {
-          setParameters(res.data);
-        });
-      } catch (err: any) {
-        setError(err.message);
-        console.log(err);
-      }
-    }
-
-    getData();
-  }, []);
-
   const updateSearchValue = React.useCallback(
     debounce((str: string) => {
       changeSearchValue(str);
@@ -57,15 +70,10 @@ const Parameters: React.FC<ParameterProps> = ({
     setSearchValue("");
   };
 
-  return error !== "" ? (
-    <Error
-      header={error}
-      text={"Похоже возникли непредвиденные обстоятельства :("}
-    />
-  ) : (
+  return (
     <div className={styles.parameters}>
       <div className={styles.parametersBlock}>
-        {parameters.map((obj: any) => (
+        {parameters.map((obj) => (
           <div
             key={obj.id}
             onClick={() => changeParameter(obj.id)}

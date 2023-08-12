@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import{ useDispatch, useSelector} from "react-redux";
+import axios, { AxiosResponse } from "axios";
+import{ useDispatch} from "react-redux";
 
 import styles from "./Product.module.scss";
 
@@ -9,7 +9,7 @@ import { ReactComponent as Add } from "../../assets/ico/add.svg";
 import { ReactComponent as Favorite } from "../../assets/ico/favorite.svg";
 import fullFavorite from "../../assets/ico/fullFavorite.png";
 
-import { setItems, removeItem } from "../../store/favorite/favoriteSlice";
+import { setItems, removeItem, FavoriteItem } from "../../store/favorite/favoriteSlice";
 import { setCartItems } from "../../store/cart/cartSlice";
 
 type ProductProps = {
@@ -17,14 +17,25 @@ type ProductProps = {
   name: string,
   price: number,
   type: number,
-  weight: string,
+  weight: number,
   mainPhoto: string,
   photos: string[],
   description: string,
   property: string,
-  favorite: [],
+  favorite: FavoriteItem[],
   isAddToFavorite: boolean,
   isAddToCart: boolean,
+}
+
+type Data = {
+  id: string,
+  name: string,
+  price: number,
+  type: number,
+  weight: number,
+  mainPhoto: string,
+  photos: string[],
+  description: string
 }
 
 const Product: React.FC<ProductProps> = ({
@@ -46,11 +57,11 @@ const Product: React.FC<ProductProps> = ({
   const dispatch = useDispatch();
 
   const changeToFavorite = async () => {
-    if (favorite.find((obj: any) => obj.id === id)) {
+    if (favorite.find((obj) => obj.id === id)) {
       await axios.delete(`http://192.168.0.104:3001/favorite/${id}`);
       dispatch(removeItem(id));
     } else {
-      const resp: any = await axios
+      await axios
         .post("http://192.168.0.104:3001/favorite", {
           id: id,
           name: name,
@@ -61,15 +72,14 @@ const Product: React.FC<ProductProps> = ({
           photos: photos,
           description: description,
           property: property,
-        })
+        }).then((response: AxiosResponse) =>dispatch(setItems(response.data)))
         .catch((error) => console.log(error));
-      dispatch(setItems(resp.data))
     }
     setIsAddedToFavorite(!isAddedToFavorite);
   };
 
   const addToCart = async () => {
-      const resp: any = await axios
+  await axios
         .post("http://192.168.0.104:3001/cart", {
           id: id,
           name: name,
@@ -81,10 +91,8 @@ const Product: React.FC<ProductProps> = ({
           description: description,
           property: property,
           count: 1
-        })
+        }).then((response: AxiosResponse) => dispatch(setCartItems(response.data)))
         .catch((error) => console.log(error));
-        dispatch(setCartItems(resp.data))
-
     setIsAddedToCart(true);
   };
 

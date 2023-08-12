@@ -3,9 +3,11 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import styles from "./CartItem.module.scss";
+
 import { ReactComponent as Plus } from "../../assets/ico/plus.svg";
 import { ReactComponent as Minus } from "../../assets/ico/minus.svg";
 import { ReactComponent as Delete } from "../../assets/ico/deleteIco.svg";
+
 import {
   setCartItems,
   minusItem,

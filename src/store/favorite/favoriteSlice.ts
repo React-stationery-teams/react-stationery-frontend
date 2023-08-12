@@ -9,7 +9,7 @@ export const fetchFavorite = createAsyncThunk<FavoriteItem[]>(
     }
 )
 
-type FavoriteItem = {
+export type FavoriteItem = {
     id: string;
     mainPhoto: string;
     name: string;
