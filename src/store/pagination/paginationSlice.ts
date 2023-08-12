@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const initialState = {
     paginationId: 0,
@@ -17,7 +18,7 @@ export const paginationSlice = createSlice({
     },
 })
 
-export const selectPaginationId = (state) => state.pagination
+export const selectPaginationId = (state: RootState) => state.pagination
 
 export const {setPaginationId, setPaginationNull} = paginationSlice.actions;
 

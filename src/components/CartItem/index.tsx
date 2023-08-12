@@ -10,6 +10,7 @@ import {
   setCartItems,
   minusItem,
   removeItem,
+  ItemProps,
 } from "../../store/cart/cartSlice";
 
 type CartItemProps = {
@@ -49,7 +50,7 @@ const CartItem: React.FC<CartItemProps> = ({
           <div className={styles.Cost}>Цена:{price * count}р</div>
         </div>
         <div className={styles.Counter}>
-          <div onClick={() => dispatch(setCartItems({ id }))}>
+          <div onClick={() => dispatch(setCartItems({ id } as ItemProps))}>
             <Plus />
           </div>
           <div>{count}</div>

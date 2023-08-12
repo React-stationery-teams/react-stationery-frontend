@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 import styles from "./Favorite.module.scss";
 
@@ -16,15 +16,14 @@ import { fetchCart } from "../../store/cart/cartSlice";
 import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import { selectCart } from "../../store/cart/cartSlice";
 import { selectFavorite } from "../../store/favorite/favoriteSlice";
+import { useAppDispatch } from "../../store/store";
 
 const Favorite: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    dispatch(//@ts-ignore
-    fetchFavorite());
-    dispatch(//@ts-ignore
-    fetchCart());
+    dispatch(fetchFavorite());
+    dispatch(fetchCart());
   }, []);
 
   const { favoriteItems, favoriteStatus} = useSelector(selectFavorite);

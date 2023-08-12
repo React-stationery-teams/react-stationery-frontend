@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 import styles from "./Home.module.scss";
 import Product from "../../components/Product/index";
@@ -16,14 +16,15 @@ import { fetchItemsLength, selectAllProducts } from "../../store/productsLength/
 import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import { selectCart } from "../../store/cart/cartSlice";
 import { selectItems } from "../../store/products/itemsSlice";
+import { useAppDispatch } from "../../store/store";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {parameterId} = useSelector(selectParametersId);
   const {paginationId} = useSelector(selectPaginationId);
   const {value} = useSelector(selectSearch);
   const { items, status } = useSelector(selectItems);
-  const {allProducts} = useSelector(selectAllProducts);
+  const {allItems} = useSelector(selectAllProducts);
   const {favoriteItems, favoriteStatus} = useSelector(selectFavorite);
   const {cartItems, cartStatus} = useSelector(selectCart);
   const [inputValue, setInputValue] = React.useState('');
@@ -47,27 +48,11 @@ const Home: React.FC = () => {
 
   //получение товаров
   React.useEffect(() => {
-    dispatch(
-      //@ts-ignore
-      fetchItems({
-        parameter,
-        search,
-        paginationValue,
-      })
+    dispatch(fetchItems({parameter,search,paginationValue})
     );
-    dispatch(
-      //@ts-ignore
-      fetchCart());
-    dispatch(
-      //@ts-ignore
-      fetchFavorite());
-    dispatch(
-      //@ts-ignore
-      fetchItemsLength({
-        parameter,
-        search,
-      })
-    );
+    dispatch(fetchCart());
+    dispatch(fetchFavorite());
+    dispatch(fetchItemsLength({ parameter, search}));
     setInputValue(value)
   }, [parameter, search, paginationValue]);
 
@@ -99,9 +84,9 @@ const Home: React.FC = () => {
             <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>
             ) : null}
       </div>
-      {allProducts.length >= 8 ? (
+      {allItems.length >= 8 ? (
         <Pagination
-          length={allProducts.length}
+          length={allItems.length}
           changePagination={changePagination}
         />
       ) : (

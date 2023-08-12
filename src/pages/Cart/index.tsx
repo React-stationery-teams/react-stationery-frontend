@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Button from "../../components/Button";
 import styles from "./Cart.module.scss";
@@ -12,15 +12,15 @@ import { selectCart } from "../../store/cart/cartSlice";
 import { clearCart, fetchCart } from "../../store/cart/cartSlice";
 import CartItem from "../../components/CartItem";
 import axios from "axios";
+import { useAppDispatch } from "../../store/store";
 
 const Cart: React.FC = () => {
   const {totalPrice, cartItems} = useSelector(selectCart)
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   console.log(cartItems)
 
   React.useEffect(() => {
-    dispatch(//@ts-ignore
-    fetchCart())
+    dispatch(fetchCart())
   }, []);
 
   const clearAllCart = () => {

@@ -126,21 +126,7 @@
     }
   ],
   "cart": [],
-  "favorite": [
-    {
-      "id": "р6567255",
-      "name": "Закладки самоклеящиеся «Градиент»",
-      "price": 150,
-      "type": 6,
-      "weight": "0.01",
-      "mainPhoto": "https://ndc.book24.ru/resize/820x1180/iblock/913/9130a40080c53365b571b3a487cc9f55/613e82cd37e63112451cbf1cfb00fe3b.jpg",
-      "photos": [
-        "https://ndc.book24.ru/crop/180x180/uf/e75/e7518f60f24a6f2c75d59c6d87582db6/735c89c8eb9a95829ea55fa87225aced.jpg",
-        "https://ndc.book24.ru/crop/180x180/uf/80e/80e4d0f58c18d1042227071e4ef2238e/a1520c3d36b5c9836b76bb5d12a8da75.jpg"
-      ],
-      "description": "Закладки самоклеящиеся «Градиент» 6*120л, бумажные, ассорти. В ассортименте без возможности выбора"
-    }
-  ],
+  "favorite": [],
   "parameters": [
     {
       "id": "0",
