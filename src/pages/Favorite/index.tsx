@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 import styles from "./Favorite.module.scss";
+
 import arrow from "../../assets/ico/back.svg";
+import smile from "../../assets/ico/favorite-smile.png";
 
 import ItemSkeleton from "../../components/Skeletons/ItemSkeleton";
 import Product from "../../components/Product";
 import Error from "../../components/Error/index";
+import ClearPage from "../../components/ClearPage";
 
 import { fetchFavorite } from "../../store/favorite/favoriteSlice";
 import { fetchCart } from "../../store/cart/cartSlice";
@@ -17,16 +20,17 @@ import { useAppDispatch } from "../../store/store";
 
 const Favorite: React.FC = () => {
   const dispatch = useAppDispatch();
+  console.log(smile);
 
   React.useEffect(() => {
     dispatch(fetchFavorite());
     dispatch(fetchCart());
   }, []);
 
-  const { favoriteItems, favoriteStatus} = useSelector(selectFavorite);
-  const {cartStatus, cartItems}= useSelector(selectCart);
+  const { favoriteItems, favoriteStatus } = useSelector(selectFavorite);
+  const { cartStatus, cartItems } = useSelector(selectCart);
 
-  return (
+  return (<>
     <div className={styles.favorite}>
       <div className={styles.header}>
         <Link to="/" className={styles.back}>
@@ -35,7 +39,12 @@ const Favorite: React.FC = () => {
         <h3>Мои закладки</h3>
       </div>
       <div className={styles.productList}>
-      {favoriteStatus === 'loading' && cartStatus === "loading" ? [...new Array(4)].map(() => <ItemSkeleton />) : favoriteStatus === "success" && cartStatus === "success" ? (
+        {favoriteStatus === "loading" &&
+          cartStatus === "loading" &&
+          [...new Array(4)].map(() => <ItemSkeleton />)}
+        {favoriteStatus === "success" &&
+          cartStatus === "success" &&
+          favoriteItems.length !== 0 &&
           favoriteItems.map((obj) => (
             <Product
               favorite={favoriteItems}
@@ -46,12 +55,19 @@ const Favorite: React.FC = () => {
               key={obj.id}
               {...obj}
             />
-          ))
-        ) : <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>}
+          ))}
       </div>
     </div>
-  )
+    {favoriteItems.length === 0 &&
+      favoriteStatus === "success" &&
+      cartStatus === "success" && (
+        <ClearPage
+          header={"Корзина пуста"}
+          text={"Похоже вы еще не добавляли товаров в корзину"}
+          smile={smile}
+        />
+      )}</>
+  );
 };
 
 export default Favorite;
-
