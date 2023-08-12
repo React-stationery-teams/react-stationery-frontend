@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 const initialState = {
-    paginationId: 0,
+    paginationId: 1,
 }
 
 export const paginationSlice = createSlice({
@@ -13,7 +13,7 @@ export const paginationSlice = createSlice({
             state.paginationId = action.payload
         },
         setPaginationNull: (state) => {
-            state.paginationId = 0;
+            state.paginationId = 1;
         }
     },
 })

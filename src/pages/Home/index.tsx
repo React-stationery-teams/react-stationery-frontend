@@ -117,7 +117,7 @@ const Home: React.FC = () => {
           />
         ) : null}
       </div>
-      {allItems.length >= 8 && status === "success" ? (
+      {allItems.length >= 8 ? (
         <Pagination
           length={allItems.length}
           changePagination={changePagination}
