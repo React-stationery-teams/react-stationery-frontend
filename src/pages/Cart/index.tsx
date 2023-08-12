@@ -18,7 +18,7 @@ import { clearCart, fetchCart } from "../../store/cart/cartSlice";
 import { useAppDispatch } from "../../store/store";
 
 const Cart: React.FC = () => {
-  const {totalPrice, cartItems} = useSelector(selectCart)
+  const {totalPrice, cartItems, cartStatus} = useSelector(selectCart)
   const dispatch = useAppDispatch();
   console.log(cartItems)
 
@@ -31,8 +31,14 @@ const Cart: React.FC = () => {
     dispatch(clearCart());
   }
 
-  return cartItems.length !== 0 ? (
-    <div className={styles.Cart}>
+  return (<>
+  {cartItems.length === 0 && cartStatus === "success" ? (
+        <ClearPage
+          header={"Корзина пуста"}
+          text={"Похоже вы еще не добавляли товаров в корзину"}
+          smile={smile}
+        />
+      ) : <div className={styles.Cart}>
       <div className={styles.CartHeader}>
         <div className={styles.CartText}>
           <img src={cartIco} alt="Корзина" />
@@ -53,13 +59,8 @@ const Cart: React.FC = () => {
         <Button text="Вернуться" />
         <div className={styles.ButtonBuy}>Оплатить</div>
       </div>
-    </div>
-  ) : (
-    <ClearPage
-      header={"Корзина пуста"}
-      text={"Похоже вы еще не добавляли товаров в корзину"}
-      smile={smile}
-    />
+    </div> }
+  </>
   );
 };
 

@@ -62,11 +62,12 @@ const Favorite: React.FC = () => {
       favoriteStatus === "success" &&
       cartStatus === "success" && (
         <ClearPage
-          header={"Корзина пуста"}
-          text={"Похоже вы еще не добавляли товаров в корзину"}
+          header={"Пустота..."}
+          text={"Похоже вы еще не добавляли товаров в закладки"}
           smile={smile}
         />
-      )}</>
+      )}
+      {favoriteStatus === "error" || cartStatus === "error" ? <Error header={"#404 Упс!"} text={"Не удалось соединиться с сервером. Попробуйте позже"}/> : null}</>
   );
 };
 

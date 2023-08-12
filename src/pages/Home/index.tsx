@@ -83,7 +83,7 @@ const Home: React.FC = () => {
               />
             ))
           : status === "error" || favoriteStatus === "error" || cartStatus === "error" ? (
-            <Error header={"#404 Упс! Пустота..."} text={"Не удалось соединиться с сервером"}/>
+            <Error header={"#404 Упс!"} text={"Не удалось соединиться с сервером. Попробуйте позже"}/>
             ) : null}
       </div>
       {allItems.length >= 8 ? (
