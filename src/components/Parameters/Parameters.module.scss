@@ -22,7 +22,19 @@
         color: #5891d4;
         background-color: white;
       }
-    }
+      }
+
+      .backgroundSelected{
+        display: flex;
+        align-items: center;
+        border: 1px solid #5891d4;
+        color: #5891d4;
+        background-color: white;
+        padding: 8px 10px;
+        border-radius: 10px;
+        margin: 0 10px 5px 0;
+        cursor: pointer;
+      }
   }
 
   .search {
@@ -73,6 +85,10 @@
       margin: 0 0 0 7.5px;
 
       .background {
+        margin: 0 5px 5px 0;
+      }
+
+      .backgroundSelected{
         margin: 0 5px 5px 0;
       }
     }

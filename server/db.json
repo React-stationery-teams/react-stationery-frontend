@@ -154,6 +154,19 @@
       ],
       "description": "Ручка шариковая синяя, корпус белый, узел 1,0мм, линия письма 0,5мм, BRAUBERG",
       "count": 1
+    },
+    {
+      "id": "р6614470",
+      "name": "Тетрадь 12л кл. «Гарри Поттер»",
+      "price": 40,
+      "type": 1,
+      "weight": "0.04",
+      "mainPhoto": "https://ndc.book24.ru/resize/820x1180/iblock/a00/a00718f768a3069bb9eed17b57a05051/cb5fb82c26b993e191a94f0916b4f683.jpg",
+      "photos": [
+        "https://ndc.book24.ru/crop/180x180/uf/fe0/fe0b8b0836209cf7295a12a6ae935f20/bd0b80f8d6ff8308ef4028ba3981b95c.jpg"
+      ],
+      "description": "Тетрадь 12л кл. «Гарри Поттер» 65г/м2, скругл.углы, ассорти. В ассортименте без возможности выбора.",
+      "count": 1
     }
   ],
   "favorite": []

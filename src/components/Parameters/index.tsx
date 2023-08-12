@@ -4,6 +4,8 @@ import debounce from "lodash.debounce";
 import styles from "./Parameters.module.scss";
 
 import searchImg from "../../assets/ico/search.svg";
+import { useSelector } from "react-redux";
+import { selectParametersId } from "../../store/filter/filterSlice";
 
 const parameters = [
   {
@@ -53,6 +55,7 @@ const Parameters: React.FC<ParameterProps> = ({
   setSearchValue,
   searchValue,
 }) => {
+  const { parameterId } = useSelector(selectParametersId);
   const updateSearchValue = React.useCallback(
     debounce((str: string) => {
       changeSearchValue(str);
@@ -73,15 +76,25 @@ const Parameters: React.FC<ParameterProps> = ({
   return (
     <div className={styles.parameters}>
       <div className={styles.parametersBlock}>
-        {parameters.map((obj) => (
-          <div
-            key={obj.id}
-            onClick={() => changeParameter(obj.id)}
-            className={styles.background}
-          >
-            <div className={styles.text}>{obj.name}</div>
-          </div>
-        ))}
+        {parameters.map((obj) =>
+          obj.id === parameterId ? (
+            <div
+              key={obj.id}
+              onClick={() => changeParameter(obj.id)}
+              className={styles.backgroundSelected}
+            >
+              <div className={styles.text}>{obj.name}</div>
+            </div>
+          ) : (
+            <div
+              key={obj.id}
+              onClick={() => changeParameter(obj.id)}
+              className={styles.background}
+            >
+              <div className={styles.text}>{obj.name}</div>
+            </div>
+          )
+        )}
       </div>
       <div className={styles.search}>
         <img src={searchImg} alt="Поиск" />
