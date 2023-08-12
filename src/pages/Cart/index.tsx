@@ -12,6 +12,7 @@ import smile from "../../assets/ico/favorite-smile.png";
 import Button from "../../components/Button";
 import ClearPage from "../../components/ClearPage";
 import CartItem from "../../components/CartItem";
+import Error from "../../components/Error/index";
 
 import { selectCart } from "../../store/cart/cartSlice";
 import { clearCart, fetchCart } from "../../store/cart/cartSlice";
@@ -38,7 +39,7 @@ const Cart: React.FC = () => {
           text={"Похоже вы еще не добавляли товаров в корзину"}
           smile={smile}
         />
-      ) : <div className={styles.Cart}>
+      ) : cartStatus === "success" && cartItems.length !== 0 && <div className={styles.Cart}>
       <div className={styles.CartHeader}>
         <div className={styles.CartText}>
           <img src={cartIco} alt="Корзина" />
@@ -60,6 +61,7 @@ const Cart: React.FC = () => {
         <div className={styles.ButtonBuy}>Оплатить</div>
       </div>
     </div> }
+    {cartStatus === "error" ? <Error header={"#404 Упс!"} text={"Не удалось соединиться с сервером. Попробуйте позже"}/> : null}
   </>
   );
 };
