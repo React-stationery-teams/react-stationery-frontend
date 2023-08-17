@@ -41,7 +41,7 @@ const Favorite: React.FC = () => {
       <div className={styles.productList}>
         {favoriteStatus === "loading" &&
           cartStatus === "loading" &&
-          [...new Array(4)].map(() => <ItemSkeleton />)}
+          [...new Array(4)].map((_, index) => <ItemSkeleton key={index}/>)}
         {favoriteStatus === "success" &&
           cartStatus === "success" &&
           favoriteItems.length !== 0 &&

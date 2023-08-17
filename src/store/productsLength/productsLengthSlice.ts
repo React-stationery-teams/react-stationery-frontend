@@ -8,7 +8,7 @@ export const fetchItemsLength = createAsyncThunk<Item[], Record<string, string>>
             parameter,
             search
           } = params;
-        const {data} = await axios.get<Item[]>(`http://192.168.0.104:3001/products?${parameter}&${search}`)
+        const {data} = await axios.get<Item[]>(`http://192.168.0.102:3001/products?${parameter}&${search}`)
         return data;
     }
 )

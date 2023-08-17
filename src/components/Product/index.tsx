@@ -58,11 +58,11 @@ const Product: React.FC<ProductProps> = ({
 
   const changeToFavorite = async () => {
     if (favorite.find((obj) => obj.id === id)) {
-      await axios.delete(`http://192.168.0.104:3001/favorite/${id}`);
+      await axios.delete(`http://192.168.0.102:3001/favorite/${id}`);
       dispatch(removeItem(id));
     } else {
       await axios
-        .post("http://192.168.0.104:3001/favorite", {
+        .post("http://192.168.0.102:3001/favorite", {
           id: id,
           name: name,
           price: price,
@@ -80,7 +80,7 @@ const Product: React.FC<ProductProps> = ({
 
   const addToCart = async () => {
   await axios
-        .post("http://192.168.0.104:3001/cart", {
+        .post("http://192.168.0.102:3001/cart", {
           id: id,
           name: name,
           price: price,

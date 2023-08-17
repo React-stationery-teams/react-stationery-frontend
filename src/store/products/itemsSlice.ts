@@ -10,7 +10,7 @@ export const fetchItems = createAsyncThunk<ItemProps[], Record<string, string>>(
             search, 
             paginationValue
           } = params;
-        const {data} = await axios.get<ItemProps[]>(`http://192.168.0.104:3001/products?${parameter}&${search}&${paginationValue}`)
+        const {data} = await axios.get<ItemProps[]>(`http://192.168.0.102:3001/products?${parameter}&${search}&${paginationValue}`)
         return data;
     }
 )

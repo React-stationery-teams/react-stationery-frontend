@@ -4,7 +4,7 @@ import { RootState } from "../store";
 
 export const fetchCart = createAsyncThunk(
     'cart/fetchCart', async() => {
-        const {data} = await axios.get<ItemProps[]>("http://192.168.0.104:3001/cart")
+        const {data} = await axios.get<ItemProps[]>("http://192.168.0.102:3001/cart")
         return data;
     }
 )

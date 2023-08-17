@@ -93,7 +93,7 @@ const Home: React.FC = () => {
         {status === "loading" &&
         cartStatus === "loading" &&
         favoriteStatus === "loading"
-          ? [...new Array(8)].map(() => <ItemSkeleton />)
+          ? [...new Array(8)].map((_, index) => <ItemSkeleton key={index} />)
           : status === "success" &&
             cartStatus === "success" &&
             favoriteStatus === "success" &&

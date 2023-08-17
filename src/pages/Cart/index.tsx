@@ -28,7 +28,7 @@ const Cart: React.FC = () => {
   }, []);
 
   const clearAllCart = () => {
-    cartItems.forEach((obj) => axios.delete(`http://192.168.0.104:3001/cart/${obj.id}`))
+    cartItems.forEach((obj) => axios.delete(`http://192.168.0.102:3001/cart/${obj.id}`))
     dispatch(clearCart());
   }
 

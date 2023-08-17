@@ -6,6 +6,7 @@ import styles from "./Parameters.module.scss";
 import searchImg from "../../assets/ico/search.svg";
 import { useSelector } from "react-redux";
 import { selectParametersId } from "../../store/filter/filterSlice";
+import axios from "axios";
 
 const parameters = [
   {

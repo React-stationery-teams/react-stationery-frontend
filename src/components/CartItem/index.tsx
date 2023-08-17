@@ -33,7 +33,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const dispatch = useDispatch();
 
   const deleteItem = () => {
-    axios.delete(`http://192.168.0.104:3001/cart/${id}`);
+    axios.delete(`http://192.168.0.102:3001/cart/${id}`);
     dispatch(removeItem(id));
   };
 

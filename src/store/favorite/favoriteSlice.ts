@@ -4,7 +4,7 @@ import { RootState } from "../store";
 
 export const fetchFavorite = createAsyncThunk<FavoriteItem[]>(
     'favorite/fetchFavorite', async() => {
-        const {data} = await axios.get<FavoriteItem[]>("http://192.168.0.104:3001/favorite")
+        const {data} = await axios.get<FavoriteItem[]>("http://192.168.0.102:3001/favorite")
         return data;
     }
 )
