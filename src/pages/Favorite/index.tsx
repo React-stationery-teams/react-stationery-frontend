@@ -49,9 +49,9 @@ const Favorite: React.FC = () => {
             <Product
               favorite={favoriteItems}
               isAddToFavorite={favoriteItems.some(
-                (product) => obj.id === product.id
+                (product) => obj.itemId === product.itemId
               )}
-              isAddToCart={cartItems.some((product) => obj.id === product.id)}
+              isAddToCart={cartItems.some((product) => obj.itemId === product.itemId)}
               key={obj.id}
               {...obj}
             />

@@ -3,20 +3,34 @@ import axios from 'axios';
 import { RootState } from '../store';
 
 
-export const fetchItems = createAsyncThunk<ItemProps[], Record<string, string>>(
+export const fetchItems = createAsyncThunk<ItemData, Record<string, string>>(
     'items/fetchItems', async(params) => {
         const {
             parameter,
             search, 
             paginationValue
           } = params;
-        const {data} = await axios.get<ItemProps[]>(`http://192.168.0.102:3001/products?${parameter}&${search}&${paginationValue}`)
+        const {data} = await axios.get<ItemData>(`https://e864ead0a6a97fd9.mokky.dev/products?${search}&${parameter}&${paginationValue}`)
         return data;
     }
 )
 
+type ItemMeta = {
+    current_page: number,
+    per_page: number,
+    remaining_count: number,
+    total_items: number,
+    total_pages: number
+}
+
+type ItemData = {
+    items: ItemProps[],
+    meta: ItemMeta,
+}
+
 export type ItemProps = {
-    id: string;
+    id: number,
+    itemId: string;
     mainPhoto: string;
     name: string;
     price: number;
@@ -30,13 +44,15 @@ export type ItemProps = {
 
 interface ProductSliceState {
     items: ItemProps[],
-    status: "loading" | "success" | "error"
+    status: "loading" | "success" | "error",
+    paginationCount: number
 }
 
 
 const initialState: ProductSliceState  = {
     items: [],
     status: 'loading', //loading | error | success
+    paginationCount: 0
 };
 
 const itemsSlice = createSlice({
@@ -53,7 +69,8 @@ const itemsSlice = createSlice({
             state.items = [];
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
-            state.items = action.payload;
+            state.items = action.payload.items;
+            state.paginationCount = action.payload.meta.total_pages;
             state.status = 'success'
         });
         builder.addCase(fetchItems.rejected, (state) => {

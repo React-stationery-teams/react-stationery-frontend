@@ -16,7 +16,8 @@ import {
 } from "../../store/cart/cartSlice";
 
 type CartItemProps = {
-  id: string;
+  id: number;
+  itemId: string;
   mainPhoto: string;
   name: string;
   price: number;
@@ -25,6 +26,7 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({
   id,
+  itemId,
   mainPhoto,
   name,
   price,
@@ -33,18 +35,18 @@ const CartItem: React.FC<CartItemProps> = ({
   const dispatch = useDispatch();
 
   const deleteItem = () => {
-    axios.delete(`http://192.168.0.102:3001/cart/${id}`);
-    dispatch(removeItem(id));
+    axios.delete(`https://e864ead0a6a97fd9.mokky.dev/cart/${id}`);
+    dispatch(removeItem(itemId));
   };
 
   const onClickMinus = () => {
     if (count > 1) {
-      dispatch(minusItem(id));
+      dispatch(minusItem(itemId));
     }
   };
 
   return (
-    <div key={id} className={styles.Product}>
+    <div key={itemId} className={styles.Product}>
       <img src={mainPhoto} alt="Товар" />
       <div className={styles.Description}>
         <div className={styles.Text}>
@@ -52,7 +54,7 @@ const CartItem: React.FC<CartItemProps> = ({
           <div className={styles.Cost}>Цена:{price * count}р</div>
         </div>
         <div className={styles.Counter}>
-          <div onClick={() => dispatch(setCartItems({ id } as ItemProps))}>
+          <div onClick={() => dispatch(setCartItems({ itemId } as ItemProps))}>
             <Plus />
           </div>
           <div>{count}</div>

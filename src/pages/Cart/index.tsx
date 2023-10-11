@@ -28,7 +28,7 @@ const Cart: React.FC = () => {
   }, []);
 
   const clearAllCart = () => {
-    cartItems.forEach((obj) => axios.delete(`http://192.168.0.102:3001/cart/${obj.id}`))
+    cartItems.forEach((obj) => axios.delete(`https://e864ead0a6a97fd9.mokky.dev/cart/${obj.id}`))
     dispatch(clearCart());
   }
 
@@ -52,7 +52,7 @@ const Cart: React.FC = () => {
       </div>
       <div className={styles.ProductsList}>
         {cartItems.map((obj) => (
-          <CartItem key={obj.id} {...obj}/>
+          <CartItem key={obj.itemId} {...obj}/>
         ))}
       </div>
       <h2>Сумма: {totalPrice}</h2>

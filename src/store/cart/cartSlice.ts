@@ -4,13 +4,14 @@ import { RootState } from "../store";
 
 export const fetchCart = createAsyncThunk(
     'cart/fetchCart', async() => {
-        const {data} = await axios.get<ItemProps[]>("http://192.168.0.102:3001/cart")
+        const {data} = await axios.get<ItemProps[]>("https://e864ead0a6a97fd9.mokky.dev/cart")
         return data;
     }
 )
 
 export type ItemProps = {
-    id: string;
+    id: number;
+    itemId: string;
     mainPhoto: string;
     name: string;
     price: number;
@@ -35,7 +36,7 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         setCartItems: (state, action: PayloadAction<ItemProps>) =>{
-            const findItem = state.cartItems.find((obj) => obj.id === action.payload.id)
+            const findItem = state.cartItems.find((obj) => obj.itemId === action.payload.itemId)
 
             if(findItem){
                 findItem.count++;
@@ -47,7 +48,7 @@ export const cartSlice = createSlice({
             state.totalPrice = state.cartItems.reduce((sum, obj) => {return obj.price * obj.count + sum}, 0);
         },
         removeItem: (state, action: PayloadAction<string>) => {
-            state.cartItems = state.cartItems.filter((obj) => obj.id !== action.payload)
+            state.cartItems = state.cartItems.filter((obj) => obj.itemId !== action.payload)
             state.totalPrice = state.cartItems.reduce((sum, obj) => {return obj.price * obj.count + sum}, 0);
         },
         clearCart: (state) => {
@@ -55,7 +56,7 @@ export const cartSlice = createSlice({
             state.totalPrice = 0;
         },
         minusItem: (state, action: PayloadAction<string>) => {
-            const findItem = state.cartItems.find((obj) => obj.id === action.payload)
+            const findItem = state.cartItems.find((obj) => obj.itemId === action.payload)
             if(findItem){
                 findItem.count--;
                 state.totalPrice -= findItem.price;

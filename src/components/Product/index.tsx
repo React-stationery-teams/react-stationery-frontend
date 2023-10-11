@@ -13,7 +13,8 @@ import { setItems, removeItem, FavoriteItem } from "../../store/favorite/favorit
 import { setCartItems } from "../../store/cart/cartSlice";
 
 type ProductProps = {
-  id: string,
+  id: number,
+  itemId: string,
   name: string,
   price: number,
   type: number,
@@ -27,19 +28,9 @@ type ProductProps = {
   isAddToCart: boolean,
 }
 
-type Data = {
-  id: string,
-  name: string,
-  price: number,
-  type: number,
-  weight: number,
-  mainPhoto: string,
-  photos: string[],
-  description: string
-}
-
 const Product: React.FC<ProductProps> = ({
   id,
+  itemId,
   name,
   price,
   type,
@@ -57,13 +48,13 @@ const Product: React.FC<ProductProps> = ({
   const dispatch = useDispatch();
 
   const changeToFavorite = async () => {
-    if (favorite.find((obj) => obj.id === id)) {
-      await axios.delete(`http://192.168.0.102:3001/favorite/${id}`);
-      dispatch(removeItem(id));
+    if (favorite.find((obj) => obj.itemId === itemId)) {
+      await axios.delete(`https://e864ead0a6a97fd9.mokky.dev/favorite/${id}`);
+      dispatch(removeItem(itemId));
     } else {
       await axios
-        .post("http://192.168.0.102:3001/favorite", {
-          id: id,
+        .post("https://e864ead0a6a97fd9.mokky.dev/favorite", {
+          itemId: itemId,
           name: name,
           price: price,
           type: type,
@@ -80,8 +71,8 @@ const Product: React.FC<ProductProps> = ({
 
   const addToCart = async () => {
   await axios
-        .post("http://192.168.0.102:3001/cart", {
-          id: id,
+        .post("https://e864ead0a6a97fd9.mokky.dev/cart", {
+          itemId: itemId,
           name: name,
           price: price,
           type: type,

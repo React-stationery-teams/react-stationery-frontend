@@ -4,7 +4,6 @@ import pagination from "./pagination/paginationSlice"
 import search from "./search/searchSlice";
 import cart from "./cart/cartSlice";
 import items from "./products/itemsSlice";
-import productsLength from "./productsLength/productsLengthSlice";
 import favorite from "./favorite/favoriteSlice";
 import { useDispatch } from "react-redux";
 
@@ -15,7 +14,6 @@ export const store = configureStore({
     search,
     cart,
     items,
-    productsLength,
     favorite,
   },
 });

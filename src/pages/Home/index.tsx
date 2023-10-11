@@ -28,10 +28,6 @@ import {
   fetchFavorite,
   selectFavorite,
 } from "../../store/favorite/favoriteSlice";
-import {
-  fetchItemsLength,
-  selectAllProducts,
-} from "../../store/productsLength/productsLengthSlice";
 import { selectCart } from "../../store/cart/cartSlice";
 import { selectItems } from "../../store/products/itemsSlice";
 import { useAppDispatch } from "../../store/store";
@@ -41,11 +37,11 @@ const Home: React.FC = () => {
   const { parameterId } = useSelector(selectParametersId);
   const { paginationId } = useSelector(selectPaginationId);
   const { value } = useSelector(selectSearch);
-  const { items, status } = useSelector(selectItems);
-  const { allItems } = useSelector(selectAllProducts);
+  const { items, status, paginationCount } = useSelector(selectItems);
   const { favoriteItems, favoriteStatus } = useSelector(selectFavorite);
   const { cartItems, cartStatus } = useSelector(selectCart);
   const [inputValue, setInputValue] = React.useState("");
+
 
   const changeParameter = (id: number) => {
     dispatch(setParametersId(id));
@@ -61,17 +57,19 @@ const Home: React.FC = () => {
   };
 
   const parameter = parameterId > 0 ? `type=${parameterId}` : "";
-  const search = value ? `name_like=${value}` : "";
-  const paginationValue = `_page=${paginationId}&_limit=8`;
+  const search = value ? `name=*${value}*` : "";
+  const paginationValue = `page=${paginationId}&limit=8`;
 
   //получение товаров
   React.useEffect(() => {
     dispatch(fetchItems({ parameter, search, paginationValue }));
-    dispatch(fetchCart());
-    dispatch(fetchFavorite());
-    dispatch(fetchItemsLength({ parameter, search }));
     setInputValue(value);
   }, [parameter, search, paginationValue]);
+
+  React.useEffect(() => {
+    dispatch(fetchCart());
+    dispatch(fetchFavorite());
+  }, [])
 
   return (
     <>
@@ -100,10 +98,10 @@ const Home: React.FC = () => {
             items.map((obj) => (
               <Product
                 isAddToFavorite={favoriteItems.some(
-                  (product) => obj.id === product.id
+                  (product) => obj.itemId === product.itemId
                 )}
-                isAddToCart={cartItems.some((product) => obj.id === product.id)}
-                key={obj.id}
+                isAddToCart={cartItems.some((product) => obj.itemId === product.itemId)}
+                key={obj.itemId}
                 favorite={favoriteItems}
                 {...obj}
               />
@@ -117,9 +115,9 @@ const Home: React.FC = () => {
           />
         ) : null}
       </div>
-      {allItems.length >= 8 && status !== "error" && favoriteStatus !== "error" && cartStatus !== "error" ? (
+      {paginationCount > 1 && status !== "error" && favoriteStatus !== "error" && cartStatus !== "error" ? (
         <Pagination
-          length={allItems.length}
+          length={paginationCount}
           changePagination={changePagination}
         />
       ) : (

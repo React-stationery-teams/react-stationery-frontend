@@ -4,13 +4,14 @@ import { RootState } from "../store";
 
 export const fetchFavorite = createAsyncThunk<FavoriteItem[]>(
     'favorite/fetchFavorite', async() => {
-        const {data} = await axios.get<FavoriteItem[]>("http://192.168.0.102:3001/favorite")
+        const {data} = await axios.get<FavoriteItem[]>("https://e864ead0a6a97fd9.mokky.dev/favorite")
         return data;
     }
 )
 
 export type FavoriteItem = {
-    id: string;
+    id: number;
+    itemId: string;
     mainPhoto: string;
     name: string;
     price: number;
@@ -40,7 +41,7 @@ export const favoriteSlice = createSlice({
             state.favoriteItems.push(action.payload)
         },
         removeItem: (state, action: PayloadAction<string>) => {
-            state.favoriteItems = state.favoriteItems.filter((obj) => obj.id !== action.payload)
+            state.favoriteItems = state.favoriteItems.filter((obj) => obj.itemId !== action.payload)
         },
     },
     extraReducers: (builder) => {
