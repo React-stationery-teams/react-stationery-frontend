@@ -16,7 +16,7 @@ function App() {
     <div className={styles.background}>
       <Header />
       <Routes>
-        <Route path="/react-stationery" element={<Home />}></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route
           path="*"
           element={
@@ -26,10 +26,10 @@ function App() {
             />
           }
         ></Route>
-        <Route path="react-stationery/favorite" element={<Favorite />}></Route>
-        <Route path="react-stationery/profile" element={<Profile />}></Route>
-        <Route path="react-stationery/product" element={<AboutProduct />}></Route>
-        <Route path="react-stationery/cart" element={<Cart />}></Route>
+        <Route path="/favorite" element={<Favorite />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/product" element={<AboutProduct />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
     </div>
   );
