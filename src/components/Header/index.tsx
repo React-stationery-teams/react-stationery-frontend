@@ -17,22 +17,22 @@ const Header: React.FC = () => {
   return (
     <header>
       <div className={styles.left}>
-        <Link to="/">
+        <Link to="/react-stationery/home">
           <img src={logo} alt="Логотип" />
         </Link>
       </div>
       <div className={styles.right}>
         <div className={styles.cost}>
           <h5>1578 р.</h5>
-          <Link to="/cart">
+          <Link to="/react-stationery/cart">
             {cartItems.length > 0 ? <div className={styles.backgroundAlert}><div className={styles.textAlert}>{cartItems.length}</div></div> : ''}
             <img src={cartImg} alt="Корзина" />
           </Link>
         </div>
-        <Link to="/favorite">
+        <Link to="/react-stationery/favorite">
           <img src={favorite} alt="Закладки" />
         </Link>
-        <Link to="/profile">
+        <Link to="/react-stationery/profile">
           <img src={profile} alt="Профиль" />
         </Link>
       </div>
