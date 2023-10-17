@@ -104,7 +104,7 @@ const Product: React.FC<ProductProps> = ({
       )}
       <img src={mainPhoto} alt="Товар" />
       <div className={styles.description}>
-        <Link to="/product" className={styles.name}>
+        <Link to="/react-stationery/product" className={styles.name}>
           {name}
         </Link>
       </div>
